@@ -1,2 +1,2 @@
 # Lab_Notes
-github storage of my hackMD notes
+backups of my hackMD notes
