@@ -219,6 +219,95 @@
 
 ### 08/25
 - 開始讀 Zhou, Yi, et al. "[Towards Deep Radar Perception for Autonomous Driving: Datasets, Methods, and Challenges](https://www.mdpi.com/1424-8220/22/11/4208)." *Sensors* 22.11 (2022): 4208. 總共有45頁
+  - 進度: 19 / 45
+
+
+### 08/26
+- 繼續讀 Zhou, Yi, et al. "[Towards Deep Radar Perception for Autonomous Driving: Datasets, Methods, and Challenges](https://www.mdpi.com/1424-8220/22/11/4208)." *Sensors* 22.11 (2022): 4208.
+  - 進度: 21 / 45
+- 了解一下 *Sensors* 這個 MDPI 底下的 open access 期刊
+  - MDPI 出版社底下的期刊列表 [Journal List](https://www.mdpi.com/journal/sensors/announcements/2041)。從 Updated Impact Factors 可以找到 *Sensors*，然後底下又有3個類別，分別是 "Chemistry, Analytical", "Engineering, Electrical & Electronic", 和 "Instruments & Instrumentation"，但好像是混在一起都發在同一個期刊上，可能再透過不同 Issue 分開。
+  - 之前大學做專題的時候也讀過幾篇老師指派的 *Sensors* 的文章，只是不清楚他客觀上是不是一個好的期刊。
+  - *Sensors* 是 2001 年創刊，Volume多少就是指第幾年出版的，Issue多少就是指哪個領域，每年的每月初會出2個Issue 所以一年共出24份刊物。
+  - 舉例來說 [*Sensors* 22.11 (2022): 4208.](https://www.mdpi.com/1424-8220/22/11/4208) 就是 [*Sensors*, Volume 22, Issue 11 (June-1 2022)](https://www.mdpi.com/1424-8220/22/11) 即 2022 年出版的第 11 個 Issue 的第 4208 篇，篇數是從 Issue 1 開始算的，每個 Issue 都收 3~400 篇左右。
+
+| Journal | Impact Factor | Rank | Category | Details |
+| - | - | - | - | - |
+| *Sensors* | 3.275 | 77/266 (Q2) | Engineering, Electrical & Electronic | [Link](https://www.mdpi.com/journal/sensors/stats) |
+| *Sensors* | 3.275 | 22/86 (Q2) | Chemistry, Analytical | [Link](https://www.mdpi.com/journal/sensors/stats) |
+| *Sensors* | 3.275 | 15/64 (Q1) | Instruments & Instrumentation | [Link](https://www.mdpi.com/journal/sensors/stats) |
+
+
+### **Classical Detection Pipeline**
+- the conventional **radar detection pipeline** consists of **4** steps:
+- **CFAR detection** 
+  - a CFAR detector is applied to detect peaks in the RD heat map as a list of targets
+- **Clustering**
+  - the moving targets are projected to Cartesian coordinates 
+  - and then clustered by DBSCAN
+  - static targets are usually filtered out before clustering because they are indistinguishable from environmental clutter
+- **Feature extraction**
+  - within each cluster, hand-crafted features, such as the statistics of measurements and shape descriptors, are extracted
+- **Classification**
+  - and then sent to a ML classifier
+- Improvements can be made upon each of these 4 steps
+
+### **CFAR**
+- CFAR is usually executed in an on-chip DSP, so the choice of method is restricted by hardware support
+- A threshold is set to achieve a constant false alarm rate for Rayleigh-distributed noise
+- The next-generation high resolution radar chips support OS-CFAR
+  - OS-CFAR sorts the neighbouring cells around the CUT according to the received power and selects the k-th cell to represent the noise value, often set **k = 3N/4** in practice
+  - Pros: 
+    - efficient and straightforward
+    - can distinguish close targets, effective in multi-target scenario
+  - Cons:
+    - slightly increased false alarm rate
+    - require additional computational costs
+- CFAR detection algorithm should be able to fit in a SoC, especially in automotive applications
+- More sophisticated CFAR variants are summarised in [128](https://ieeexplore.ieee.org/abstract/document/9547416), but are rarely used in automotive applications
+    - DL-based peak classification
+      - Z. Cao, W. Fang, Y. Song, L. He, C. Song and Z. Xu, "[DNN-Based Peak Sequence Classification CFAR Detection Algorithm for High-Resolution FMCW Radar](https://ieeexplore.ieee.org/abstract/document/9547416)," in *IEEE Transactions on Geoscience and Remote Sensing*, vol. 60, pp. 1-15.
+    - DL-based noise level estimation
+      - C. -H. Lin, Y. -C. Lin, Y. Bai, W. -H. Chung, T. -S. Lee and H. Huttunen, "[DL-CFAR: A Novel CFAR Target Detection Method Based on Deep Learning](https://ieeexplore.ieee.org/document/8891420)," *2019 IEEE 90th Vehicular Technology Conference (VTC2019-Fall)*, 2019, pp. 1-6.
+
+
+### **Clustering**
+- Clustering is the most important stage in the radar detection pipeline,especially for the next-generation high-resolution radar
+- **DBSCAN** is favoured for several reasons
+  - it does not require a pre-specified number of clusters
+  - it fits arbitrary shapes
+  - it runs fast
+  - Pedregosa, F.; Varoquaux, G.; Gramfort, A.; Michel, V.; Thirion, B.; Grisel, O.; Blondel, M.; Prettenhofer, P.; Weiss, R.; Dubourg, V.; et al. [Comparing Different Clustering Algorithms on Toy Datasets](https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html). (accessed on 26 Aug, 2022).
+    ```python
+    import numpy as np
+    from sklearn.metrics.pairwise import cosine_similarity
+    from sklearn.cluster import DBSCAN
+
+    total_samples = 1000
+    dimensionality = 3
+    points = np.random.rand(total_samples, dimensionality)
+
+    cosine_distance = cosine_similarity(points)
+
+    # option 1) vectors are close to each other if they are parallel
+    bespoke_distance = np.abs(np.abs(cosine_distance) -1)
+
+    # option 2) vectors are close to each other if they point in the same direction
+    bespoke_distance = np.abs(cosine_distance - 1)
+
+    results = DBSCAN(metric='precomputed', eps=0.25).fit(bespoke_distance)
+    ```
+- A
+
+
+### 08/27
+- 陳羽歡。「探討靈芝蛋白對於腸道表皮細胞完整性的影響」。碩士論文，國立臺灣大學免疫學研究所，2019。＜[https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28)＞。
+- Yu-Huan Chen. (2019). *Study the effect of Ling-Zhi 8 (LZ-8) on integrity of intestinal epithelial cell (IEC)* (DOI. 10.6342/NTU201901585) [Master Thesis, National Taiwan University] [https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28).
+- 論文引用格式範例 [Purdue Online Writing Lab](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html)
+
+
+### 08/28
+- A
 
 
 
@@ -229,7 +318,6 @@
   - [Yu-Chein Lin](https://ieeexplore.ieee.org/author/37086483408)
   - [Hsin-Yuan Chang](https://ieeexplore.ieee.org/author/37087022655)
   - [Jiawei Shao](https://ieeexplore.ieee.org/author/37088447290)
-
 - Professors
   - [Wei-Ho Chung](https://ieeexplore.ieee.org/author/37538749800)
   - [Chih-Yu Wang](https://ieeexplore.ieee.org/author/37085674145)
