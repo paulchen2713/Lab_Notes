@@ -66,7 +66,7 @@
 ### 08/16
 - 直接google "yolo model splitting" 第一頁就看到 Auto-Split 論文，然後再去 read this paper 搜尋論文名稱，找到第[1.](https://readthispaper.com/tw/paper/9a3fa28855b6b3df9652938ccb13bfaacc346192/overview#Reading-Order)篇，2021年8月發表在ACM，目前被引用次數有5次。
   - 作者 Amin Banitalebi-Dehkordi 前Huawei研究員、現任Amazon Applied Science Manager。連結: [LinkedIn](https://ca.linkedin.com/in/amin-banitalebi-dehkordi-42888999?original_referer=https%3A%2F%2Fwww.google.com%2F), [Google Scholar](https://scholar.google.com/citations?user=fSz1PtYAAAAJ&hl=en), [IEEE Xplore Author Details](https://ieeexplore.ieee.org/author/37074168400)
-  - Auto-Split 已經部屬在華為雲 [Auto-Split: Edge Cloud Collaboration](https://developer.huaweicloud.com/develop/aigallery/notebook/detail?id=5fad1eb4-50b2-4ac9-bcb0-a1f744cf85c7)
+  - Auto-Split 已經部屬在華為雲 [Auto-Split: Edge Cloud Collaboration](https://developer.huaweicloud.com/develop/aigallery/notebook/detail?id=5fad1eb4-50b2-4ac9-bcb0-a1f744cf85c7) 雲端服務
 1. Amin Banitalebi-Dehkordi, Naveen Vedula, Jian Pei, Fei Xia, Lanjun Wang, and Yong Zhang. [Auto-Split: A General Framework of Collaborative Edge-Cloud AI](https://dl.acm.org/doi/abs/10.1145/3447548.3467078), 14 August 2021, *In Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery & Data Mining (KDD '21)*.
 
 
@@ -238,25 +238,107 @@
 | *Sensors* | 3.275 | 15/64 (Q1) | Instruments & Instrumentation | [Link](https://www.mdpi.com/journal/sensors/stats) |
 
 
+
+### **Radar Signal Processing Fundamentals**
+- Different radar devices vary in their sensing capabilities
+- It is important to leverage radar domain knowledge 
+  - to understand the **performance boundary** 
+  - to find **key scenarios** 
+  - to solve **critical problems** 
+- classical signal processing pipeline for automotive radar applications
+
+
+### **FMCW Radar Signal Processing**
+- Off-the-shelf automotive radars operate with a sequence of **linear FMCW signals** (Frequency-Modulated Continuous-Wave, FMCW) to simultaneously measure **range**, **angle**, and **velocity**
+- automotive radar is allowed to use **2** frequency bands in mmwaves 
+  - 24 GHz (24~24.25 GHz)
+  - 77 GHz (77~79 GHz)
+- There is a trend towards **77 GHz** for several reasons
+  - **larger bandwidth**
+    - 76–77 GHz for long-range
+    - 77–81 GHz for short-range
+  - **higher Doppler resolution**
+  - **smaller antennas**, with sub-wavelength sized?
+  - R. Ravindran, M. J. Santora and M. M. Jamali, "[Multi-Object Detection and Tracking, Based on DNN, for Autonomous Vehicles: A Review](https://ieeexplore.ieee.org/document/9274366)," in *IEEE Sensors Journal*, vol. 21, no. 5, pp. 5668-5677, 1 March1, 2021.
+- FMCW signal is characterised by the following parameters
+  - the **carrier frequency** $f_c$ (a.k.a the start frequency)
+  - the **sweep bandwidth** $B$
+  - the **chirp duration** $T_c$
+  - the **slope** $S = B / T_c$
+- During **one chirp** duration, the frequency increases linearly from **$f_c$** to $f_c + B$ with a slope of $S$
+![](https://i.imgur.com/jfGphk0.png)
+- **One** FMCW **waveform** is referred to as **a chirp**
+- **One** radar **transmission** is **a frame of** $N_c$ **chirps** equally spaced by chirp cycle time $T_c$
+- The total time $T_f = N_c T_c$ is called the **frame time** (a.k.a the time on target, TOT)
+- In order to **avoid** the need for **high-speed sampling**, a frequency **mixer** combines the received signal with the transmitted signal to produce two signals
+  - sum frequency $f_T(t) + f_R(t)$ 
+  - difference frequency $f_T(t) - f_R(t)$
+- Then, a low-pass filter is used to filter out the sum frequency component and obtain the **IF signal** (Intermediate Frequency, IF)
+- In this way, FMCW radar can achieve GHz performance with only MHz sampling
+- In practice, a **quadrature mixer** is used to improve the **noise figure**
+  - Ramasubramanian, Karthik, and T. Instruments. "[Using a complex-baseband architecture in FMCW radar systems](https://www.ti.com/lit/wp/spyy007/spyy007.pdf)." *Texas Instruments 19* (2017).
+- Resulting complex exponential IF signal $x_{IF}(t) = Ae^{j(2 \pi f_{IF} t \; + \; \phi_{IF})}$
+  - $A$ is the **amplitude**
+  - $f_{IF} = f_T(t) - f_R(t)$ is referred to as the **beat frequency**
+  - $\phi_{IF}$ is the **phase** of the IF signal
+- Next, the IF signal is sampled $N_s$ times by an ADC converter, resulting in a discrete-time complex signal
+- Multiple frames of chirp signals are assembled into a two-dimensional matrix
+  - the dimension of the **sampling points within a chirp** is referred to as **fast time**
+  - the dimension of the **chirp index within one frame** is referred to as **slow time**
+   <img src="https://i.imgur.com/PZKVyn7.png"  width=55% height=55%>
+- Assume **one object** moving with **speed** $v$ at **distance** $r$, we have 
+  - the **frequency** $\; f_{IF} = \frac{\; 2S(r \; + \; v \; \cdot \; T_c) \; }{c} \;$ of the IF signal
+  - the **phase** $\; \phi_{IF} = \frac{\; 4 \pi (r \; + \; v \; \cdot \; T_c) \; }{\lambda} \;$ of the IF signal
+  - where $\lambda = c \; / \; f_c$ is the wavelength of the chirp signal
+  - we can find that from the above expressions the range and Doppler velocity are coupled
+- Under the following **2 assumptions**, the range and Doppler can be **decoupled**
+  - the range variations in slow time caused by target motion can be neglected due to the short frame time 
+  - the Doppler frequency in fast time can be neglected compared to the beat frequency by utilising a wideband waveform
+  - Range can be estimated from the beat frequency as $r = c \; \cdot \; f_{IF} \; / \; 2S$
+  - Doppler velocity can be estimated from the phase shift between two chirps as $v = \Delta \phi \lambda  \; / \; 4 \pi \: T_c$
+- Next, a range DFT is applied in the fast-time dimension to resolve the frequency change, followed by a Doppler DFT in the slow-time dimension to resolve the phase change
+- As a result, we obtain a 2D complex-valued data matrix called the Range–Doppler map, RD map
+
+
+
+### **Radar Object Detection**
+- Due to low resolution, classical radar detection algorithm has limited classification capability
+- At hardware level, next-generation imaging radars can output high-resolution point clouds
+- At algorithm level, NN show their potentials to learn better features from the dataset
+- There is a broader definition of **radar detection**, like
+  - **pointwise** detection
+  - **2D/3D bounding box** detection
+  - **instance segmentation**
+- According to the input data structure, we classify the **deep radar detection** into 2 classes
+  - **point-cloud-based**, similar to LiDAR point cloud
+  - **pre-CFAR-based**, similar to visual image
+- Focus on how the **radar domain knowledge** can be incorporated into these networks to address the **low SNR problem**
+  - applied on networks design?
+  - explainations on why they works?
+  - how low the SNR is low?
+- Overview of radar detection frameworks
+![](https://i.imgur.com/O7Nlu0Y.png)
+
+
 ### **Classical Detection Pipeline**
 - the conventional **radar detection pipeline** consists of **4** steps:
 - **CFAR detection** 
   - a CFAR detector is applied to detect peaks in the RD heat map as a list of targets
 - **Clustering**
-  - the moving targets are projected to Cartesian coordinates 
-  - and then clustered by DBSCAN
+  - the moving targets are first projected to Cartesian coordinates 
+  - then clustered by DBSCAN
   - static targets are usually filtered out before clustering because they are indistinguishable from environmental clutter
 - **Feature extraction**
   - within each cluster, hand-crafted features, such as the statistics of measurements and shape descriptors, are extracted
 - **Classification**
-  - and then sent to a ML classifier
-- Improvements can be made upon each of these 4 steps
+  - then sent to a ML classifier
+- Improvements can be made upon each of these **4** steps
 
 ### **CFAR**
 - CFAR is usually executed in an on-chip DSP, so the choice of method is restricted by hardware support
-- A threshold is set to achieve a constant false alarm rate for Rayleigh-distributed noise
+- A **threshold** is set to achieve a constant false alarm rate for **Rayleigh-distributed noise**
 - The next-generation high resolution radar chips support OS-CFAR
-  - OS-CFAR sorts the neighbouring cells around the CUT according to the received power and selects the k-th cell to represent the noise value, often set **k = 3N/4** in practice
+  - **OS-CFAR** sorts the neighbouring cells around the CUT according to the received power and selects the k-th cell to represent the noise value, often set **k = 3N/4** in practice
   - Pros: 
     - efficient and straightforward
     - can distinguish close targets, effective in multi-target scenario
@@ -272,11 +354,12 @@
 
 
 ### **Clustering**
-- Clustering is the most important stage in the radar detection pipeline,especially for the next-generation high-resolution radar
+- Clustering is the most important stage in the radar detection pipeline, especially for the next-generation high-resolution radar
+  - most important? what change?
 - **DBSCAN** is favoured for several reasons
-  - it does not require a pre-specified number of clusters
-  - it fits arbitrary shapes
-  - it runs fast
+  - it does not require a pre-specified number of clusters, **arbitrary clusters**
+  - it fits **arbitrary shapes**
+  - it runs **fast**
   - Pedregosa, F.; Varoquaux, G.; Gramfort, A.; Michel, V.; Thirion, B.; Grisel, O.; Blondel, M.; Prettenhofer, P.; Weiss, R.; Dubourg, V.; et al. [Comparing Different Clustering Algorithms on Toy Datasets](https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html). (accessed on 26 Aug, 2022).
     ```python
     import numpy as np
@@ -297,16 +380,213 @@
 
     results = DBSCAN(metric='precomputed', eps=0.25).fit(bespoke_distance)
     ```
-- A
+- Some improved DBSCAN that explicitly considering the characteristics of radar point clouds
+  - Grid-based DBSCAN
+    - D. Kellner, J. Klappstein and K. Dietmayer, "[Grid-based DBSCAN for clustering extended objects in radar data](https://ieeexplore.ieee.org/document/6232167)," *2012 IEEE Intelligent Vehicles Symposium*, 2012, pp. 365-370.
+  - Multi-stage clustering
+    - N. Scheiner, N. Appenrodt, J. Dickmann and B. Sick, "[A Multi-Stage Clustering Framework for Automotive Radar Data](https://ieeexplore.ieee.org/abstract/document/8916873)," *2019 IEEE Intelligent Transportation Systems Conference (ITSC)*, 2019, pp. 2060-2067.
+
+
+### **Classification**
+- Radar target classification
+- For moving objects
+  - **micro-Doppler velocity** of moving components are useful features for classification
+- For micro-motions
+  - short-time Fourier transform (**STFT**) is applied to extract **Doppler spectrograms** as useful features
+  - Different types of VRUs can be classified according to their micro-Doppler signatures, **VRU** stands for **Vulnerable Road User** 
+    - Angelov, Aleksandar, et al. "[Practical classification of different moving targets using automotive radar and deep neural networks](https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-rsn.2018.0103)." *IET Radar, Sonar & Navigation* 12.10 (2018): 1082-1089.
+    - X. Gao, G. Xing, S. Roy and H. Liu, "[Experiments with mmWave Automotive Radar Test-bed](https://ieeexplore.ieee.org/document/9048939)," *2019 53rd Asilomar Conference on Signals, Systems, and Computers*, 2019, pp. 1-6.
+- For static objects
+  - **statistical RCS** and **time-domain RCS** are useful features for classification of vehicles and pedestrians 
+    - X. Cai, M. Giallorenzo and K. Sarabandi, "[Machine Learning-Based Target Classification for MMW Radar in Autonomous Driving](https://ieeexplore.ieee.org/document/9319548)," in *IEEE Transactions on Intelligent Vehicles*, vol. 6, no. 4, pp. 678-689, Dec. 2021. 
+  -  The target RCS is a measure of the ability to reflect radar signals back to the radar receiver, **RCS** stands for **Radar Cross Section**
+- "**Range** and **Doppler**" features are most important for classification, while "angle and shape" features are usually discarded, probably because of the low angular resolution? 
+- e.g. some common methods for radar classification 
+  - O. Schumann, C. Wöhler, M. Hahn and J. Dickmann, "[Comparison of random forest and long short-term memory network performances in classification tasks using radar](https://ieeexplore.ieee.org/document/8126350)," *2017 Sensor Data Fusion: Trends, Solutions, Applications (SDF)*, 2017, pp. 1-6.
+    - 8-frame sequences input
+    - **Random Forest**, slightly decreased performance
+    - **LSTM**, more sensitive to the amount of training examples
+- "Class imbalance problem" in radar datasets could be ease by using **classifier binarisation techniques**
+  - N. Scheiner, N. Appenrodt, J. Dickmann and B. Sick, "[Radar-based Feature Design and Multiclass Classification for Road User Recognition](https://ieeexplore.ieee.org/document/8500607)," *2018 IEEE Intelligent Vehicles Symposium (IV)*, 2018, pp. 779-786.
 
 
 ### 08/27
-- 陳羽歡。「探討靈芝蛋白對於腸道表皮細胞完整性的影響」。碩士論文，國立臺灣大學免疫學研究所，2019。＜[https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28)＞。
-- Yu-Huan Chen. (2019). *Study the effect of Ling-Zhi 8 (LZ-8) on integrity of intestinal epithelial cell (IEC)* (DOI. 10.6342/NTU201901585) [Master Thesis, National Taiwan University] [https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28).
-- 論文引用格式範例 [Purdue Online Writing Lab](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html)
+- 論文引用格式範例說明 [Purdue Online Writing Lab](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html) 引用碩論 APA 格式舉例:
+  - 陳羽歡。「探討靈芝蛋白對於腸道表皮細胞完整性的影響」。碩士論文，國立臺灣大學免疫學研究所，2019。＜[https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28)＞。
+  - Yu-Huan Chen. (2019). *Study the effect of Ling-Zhi 8 (LZ-8) on integrity of intestinal epithelial cell (IEC)* (DOI. 10.6342/NTU201901585) [Master Thesis, National Taiwan University] [https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28).
+  - 台灣碩博論文網沒有看到 Publication No. 所以先放 DOI 頂一下。
 
 
-### 08/28
+
+### **Point Cloud Dector**
+- End-to-end object detectors are expected to replace the conventional pipelines based on hand-crafted features
+- Most radar detection methods only apply to moving targets, since static objects are difficult to classify due to low angular resolution
+- **To be continued...**
+
+
+
+### **Pre-CFAR Dector**
+- Pre-CFAR data encode rich information of both targets and backgrounds, but this is hard to interpret by humans
+  - DL-based CFAR estimation
+    - Y. Cheng, J. Su, H. Chen and Y. Liu, "[A New Automotive Radar 4D Point Clouds Detector by Using Deep Learning](https://ieeexplore.ieee.org/document/9413682)," *ICASSP 2021 - 2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)*, 2021, pp. 8398-8402.
+  - DL-based DOA estimation
+    - M. Gall, M. Gardill, T. Horn and J. Fuchs, "[Spectrum-based Single-Snapshot Super-Resolution Direction-of-Arrival Estimation using Deep Learning](https://ieeexplore.ieee.org/document/9080185)," *2020 German Microwave Conference (GeMiC)*, 2020, pp. 184-187.
+    - J. Fuchs, M. Gardill, M. Lübke, A. Dubey and F. Lurz, "[A Machine Learning Perspective on Automotive Radar Direction of Arrival Estimation](https://ieeexplore.ieee.org/document/9674901)," in *IEEE Access*, vol. 10, pp. 6775-6797, 2022.
+    - C. Grimm, T. Fei, E. Warsitz, R. Farhoud, T. Breddermann and R. Haeb-Umbach, "[Warping of Radar Data Into Camera Image for Cross-Modal Supervision in Automotive Applications](https://ieeexplore.ieee.org/abstract/document/9797876)," in *IEEE Transactions on Vehicular Technology*, 2022.
+- A
+
+
+
+### **Sensor Fusion for Detection**
+- Different sensors observe and represent an object with different features
+- Sensor fusion can be considered as the mapping of different modalities into a common **Latent Space** where different features of the same object can be associated together
+- Conventional taxonomy classify fusion architectures into 3 types, which is ambiguous
+  - early fusion (input)
+  - middle fusion (feature)
+  - late fusion (decision)
+- New taxonomy classify fusion architectures into **4** categories, according to their **fusion stage**, which is more explicit and clear
+  - **Input fusion**
+  - **ROI fusion**
+    - Cascade fusion, which projects radar proposals to image view
+    - Parallel fusion, which fuses radar ROIs and visual ROIs
+  - **Feature map fusion**
+  - **Decision fusion**
+- Overview of radar and camera fusion frameworks
+![](https://i.imgur.com/dzZt6yC.png)
+
+
+### **Input Fusion**
+- Input fusion requires a lightweight preprocessing to explicitly handle radar position imprecision
+- Input fusion is applied to the **radar point cloud** with **3** steps: 
+  - First, **project** radar points into a pseudo-image with the range, velocity, and RCS as channels
+  - Then, **concatenates** the radar pseudo-image and the visual image as a whole, similar to an RGB image
+  - Finally, a visual detector can be applied to this multi-channel image for **detection**
+- The **radar** and **vision** modalities are tightly **coupled**, which makes it easier for the network to learn **joint feature embeddings**
+- However, an obvious disadvantage is that the architecture is **not robust to sensor failures**
+- The difficulties and limitations lie in **3** aspects:
+  - the radar point cloud is highly **sparse**
+    - many reflections from the surface are bounced away due to specular reflections
+  - the **lateral imprecision** of radar measurements
+    - radar points can be out of the visual bounding box
+    - e.g., imprecise extrinsic calibration, multi-path effects, and low angular resolution
+  - **low-resolution** radar does not provide height information
+    - may only applicable to some radar system
+- Relying on the network to implicitly learn association is a **hard task**, because the network tends to simply ignore the weak modality, such as radar
+- To address these difficulties, some **association techniques** are required. But compared with object detection, some of the expansion methods are **too costly for real-time processing**
+  - F. Nobis, M. Geisslinger, M. Weber, J. Betz and M. Lienkamp, "[A Deep Learning-based Radar and Camera Sensor Fusion Architecture for Object Detection](https://ieeexplore.ieee.org/abstract/document/8916629)," *2019 Sensor Data Fusion: Trends, Solutions, Applications (SDF)*, 2019, pp. 1-7.
+  - S. Chadwick, W. Maddern and P. Newman, "[Distant Vehicle Detection Using Radar and Vision](https://ieeexplore.ieee.org/document/8794312)," *2019 International Conference on Robotics and Automation (ICRA)*, 2019, pp. 8311-8317.
+  - R. Yadav, A. Vierling and K. Berns, "[Radar + RGB Fusion For Robust Object Detection In Autonomous Vehicle](https://ieeexplore.ieee.org/abstract/document/9191046)," *2020 IEEE International Conference on Image Processing (ICIP)*, 2020, pp. 1986-1990.
+
+
+### **ROI Fusion**
+- ROI fusion is adapted from the classical "Fast R-CNN" two-stage detection framework
+  - Girshick, Ross. "[Fast r-cnn](https://openaccess.thecvf.com/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf)." *In Proceedings of the IEEE International Conference on Computer Vision (ICCV)*, Santiago, Chile, 7–13 December 2015; pp. 1440–1448.
+- Regions Of Interest (ROIs) can be considered as a set of object candidates without category information
+- The ROI fusion architecture can be further divided into cascade fusion and parallel fusion
+- **Cascade fusion**
+  - Cascaded ROI fusion is not robust to sensor failures
+  - In the first stage
+    - radar detections are directly used for region proposal
+    - radar points are projected into image view as the candidate locations for anchors
+    - then the ROI is determined with the help of visual semantics
+  - In the second stage
+    - each ROI is classified and its position is refined
+  - how to improve **anchor quality**?
+    - add offsets to anchors to model the positional imprecision of radar detections
+    - R. Nabati and H. Qi, "[RRPN: Radar Region Proposal Network for Object Detection in Autonomous Vehicles](https://ieeexplore.ieee.org/abstract/document/8803392)," *2019 IEEE International Conference on Image Processing (ICIP)*, 2019, pp. 3093-3097.
+  - how to mitigate **scale ambiguity** in the image view?
+    - rescaled the anchor size according to the range measurements
+    - or directly propose 3D bounding boxes and then map these boxes to the image view to avoid rescaling step
+    - Nabati, Ramin, and Hairong Qi. "[Radar-camera sensor fusion for joint object detection and distance estimation in autonomous vehicles](https://arxiv.org/pdf/2009.08428.pdf)." *arXiv preprint arXiv:2009.08428* (2020).
+- Cascade fusion is particularly well suited for low-resolution radars
+  - where the radar point cloud has a high detection recall, but is very sparse
+- Two potential problems with the cascade structure
+  - the performance is limited by the completeness of the proposed ROIs in the first stage
+  - the cascade structure cannot take advantage of modality redundancy
+- **Parallel fusion**
+  - Since cascade structure is not robust to sensor failures. It is necessary to introduce a parallel structure for improvements
+  - **two-branch structure** method
+    - first the radar and visual ROIs are generated independently
+    - then the fusion module merges radar ROIs and visual ROIs by taking a set union
+    - while the redundant ROIs are removed through NMS
+    - Nabati, Ramin, and Hairong Qi. "[Radar-camera sensor fusion for joint object detection and distance estimation in autonomous vehicles](https://arxiv.org/pdf/2009.08428.pdf)." *arXiv preprint arXiv:2009.08428* (2020).
+  - **Gated Region of Interest Fusion (GRIF)** method
+    - utilize a gated region of interest fusion (GRIF) module to enable the adaptive fusion of modalities
+    - first predicts a weight for each ROI through a convolutional sigmoid layer
+    - then multiplie the ROIs from radar and vision by their corresponding weights 
+    - finally elementwise add the results together 
+    - Y. Kim, J. W. Choi and D. Kum, "[GRIF Net: Gated Region of Interest Fusion Network for Robust 3D Object Detection from Radar Point Cloud and Monocular Image](https://ieeexplore.ieee.org/document/9341177)," *2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2020, pp. 10857-10864.
+
+
+### **Feature Map Fusion**
+- Feature map fusion provides the network with greater flexibility to combine radar and visual semantics, but requires specific training techniques for effective learning
+- Utilises 2 encoders to map radar and images into the same latent space with high-level semantics
+- The detection frameworks are flexible
+  - **One-stage methods**
+    - Lim, Teck-Yian, et al. "[Radar and camera early fusion for vehicle detection in advanced driver assistance systems](https://ml4ad.github.io/files/papers/Radar%20and%20Camera%20Early%20Fusion%20for%20Vehicle%20Detection%20in%20Advanced%20Driver%20Assistance%20Systems.pdf)." *In Proceedings of Machine Learning for Autonomous Driving Workshop at the 33rd Conference on Neural Information Processing Systems (NeurIPS Workshop)*, Vancouver, BC, Canada, 8–14 December 2019; Volume 2.
+    - J. Zhang, M. Zhang, Z. Fang, Y. Wang, X. Zhao and S. Pu, "[RVDet: Feature-level Fusion of Radar and Camera for Object Detection](https://ieeexplore.ieee.org/document/9564627)," *2021 IEEE International Intelligent Transportation Systems Conference (ITSC)*, 2021, pp. 2822-2828.
+  - **Two-stage methods**
+    - Kim, J.; Kim, Y.; Kum, D. "[Low-level Sensor Fusion Network for 3D Vehicle Detection using Radar Range-Azimuth Heatmap and Monocular Image](https://openaccess.thecvf.com/content/ACCV2020/papers/Kim_Low-level_Sensor_Fusion_Network_for_3D_Vehicle_Detection_using_Radar_ACCV_2020_paper.pdf)." *In Proceedings of the Asian Conference on Computer Vision (ACCV)*, Virtual, 30 November–4 December 2020.
+    - M. Meyer and G. Kuschk, "[Deep Learning Based 3D Object Detection for Automotive Radar and Camera](https://ieeexplore.ieee.org/document/8904867)," *2019 16th European Radar Conference (EuRAD)*, 2019, pp. 133-136.
+    - K. Qian, S. Zhu, X. Zhang and L. E. Li, "[Robust Multimodal Vehicle Detection in Foggy Weather Using Complementary Lidar and Radar Signals](https://ieeexplore.ieee.org/document/9578621)," *2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, 2021, pp. 444-453.
+  - **Anchor-free methods**
+    - further avoid the complicated computation related to anchor boxes, such as calculating the IOU score during training
+    - Yang, Bin, et al. "[Radarnet: Exploiting radar for robust perception of dynamic objects](https://link.springer.com/chapter/10.1007/978-3-030-58523-5_29)." *European Conference on Computer Vision*. Springer, Cham, 2020. 
+    - Shah, Meet, et al. "[Liranet: End-to-end trajectory prediction using spatio-temporal radar fusion](https://arxiv.org/pdf/2010.00731.pdf)." *arXiv preprint arXiv:2010.00731* (2020).
+- However, the fusion network may face the problem of **overlooking weak modalities** and **modality synergies**
+- Training techniques are needed to force the network to learn from radar input
+
+
+### **Decision Fusion**
+- Decision fusion **takes advantage of modal redundancy** and is therefore popular in real-world applications
+  - **Location** information can be robustly fused in a track-to-track architecture or with the help of network semantics
+  - **Category** information can be fused with Bayesian inference or evidence theory
+- It assumes that objects are detected independently by different modalities and fuses them according to their spatial–temporal relationships
+- This structure realises sensing redundancy at the **system level** and is therefore **robust to modalitywise error**
+- Due to the **low resolution** of radar, most existing studies **do not** explicitly **consider** the **category** information estimated by radar
+  - only fuse the location information from radar and vision branches
+  - while retaining the category information estimated by vision
+  - future fusion frameworks should consider both location and category information, since net-generation 4D radar can provide high resolution radar chips
+- Location information can be optimally fused in a tracking framework
+- Category information, especially the conflict in category predictions, is **difficult** to handle in sensor fusion
+  - BayesOD proposes a probabilistic framework for fusing bounding boxes with categories
+    - A. Harakeh, M. Smart and S. L. Waslander, "[BayesOD: A Bayesian Approach for Uncertainty Estimation in Deep Object Detectors](https://ieeexplore.ieee.org/abstract/document/9196544)," *2020 IEEE International Conference on Robotics and Automation (ICRA)*, 2020, pp. 87-93.
+  - But probabilistic methods have their inherent shortage in modelling the lack of knowledge
+    - Hüllermeier, Eyke, and Willem Waegeman. "[Aleatoric and epistemic uncertainty in machine learning: An introduction to concepts and methods](https://doi.org/10.1007/s10994-021-05946-3)." *Machine Learning* 110.3 (2021): 457-506.
+  - Leverage and utilize the **evidential theory** to fuse the LiDAR, camera, and radar
+    - R. O. Chavez-Garcia and O. Aycard, "[Multiple Sensor Fusion and Classification for Moving Object Detection and Tracking](https://ieeexplore.ieee.org/abstract/document/7283636)," in *IEEE Transactions on Intelligent Transportation Systems*, vol. 17, no. 2, pp. 525-534, Feb. 2016.
+  - **Conformal prediction** can be used to generate confidence sets from a trained network using a small amount of calibration data
+    - Angelopoulos, Anastasios N., and Stephen Bates. "[A gentle introduction to conformal prediction and distribution-free uncertainty quantification](https://arxiv.org/pdf/2107.07511.pdf)." *arXiv preprint arXiv:2107.07511* (2021).
+
+
+
+### **Challenges**
+- Although deep radar perception shows good performance on datasets, there are few studies investigating the generalisation of these methods
+- In fact, some challenging situations are overlooked, but may prohibit the use of these methods in real-world scenarios
+- Summarise **3 challenges** for deep radar perception
+  - the **ghost objects** caused by multi-path propagation are common in complex scenarios but rarely discussed
+  - **over-confidence** is a general problem with neural networks
+  - even though we always refer to radar as an all-weather sensor, **robustness in adverse weather** is not well tested in many radar fusion methods
+- Firstly, **multi-path effects** need to be explicitly considered in object detection
+- Secondly, need to alleviate the problem of **over-confidence** in radar classification and **estimate** the **uncertainty** in bounding box regression
+- Thirdly, the fusion architecture should have adaptive mechanisms to take full advantage of radar’s **all-weather capabilities**
+
+
+
+### **Future Research Directions**
+- Many research efforts have focused on developing models for detection tasks
+- There are also some unexplored research topics or fundamental questions to be addressed
+  - urgent need for **High-Quality Datasets**
+  - **Radar Domain Knowledge** and **Uncertainty Quantification** can help developing a generalizable AI model
+  - **Interference Mitigation**
+  - **Motion Forecasting**
+- Consider the perceptual system as a whole can **extend** the end-to-end learning **framework** forward or backward
+  - **forward**, i.e. joint learning with **interference mitigation**
+  - **backward**, i.e. **motion prediction** 
+
+
+
+### 08/29
 - A
 
 
