@@ -425,7 +425,7 @@
 
 
 
-### **Pre-CFAR Dector**
+### **Pre-CFAR Detector**
 - Pre-CFAR data encode rich information of both targets and backgrounds, but this is hard to interpret by humans
   - DL-based CFAR estimation
     - Y. Cheng, J. Su, H. Chen and Y. Liu, "[A New Automotive Radar 4D Point Clouds Detector by Using Deep Learning](https://ieeexplore.ieee.org/document/9413682)," *ICASSP 2021 - 2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)*, 2021, pp. 8398-8402.
