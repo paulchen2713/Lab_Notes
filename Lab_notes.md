@@ -264,12 +264,12 @@
   - the **carrier frequency** $f_c$ (a.k.a the start frequency)
   - the **sweep bandwidth** $B$
   - the **chirp duration** $T_c$
-  - the **slope** $S = B / T_c$
+  - the **slope** $S = B \: / \: T_c$
 - During **one chirp** duration, the frequency increases linearly from **$f_c$** to $f_c + B$ with a slope of $S$
 ![](https://i.imgur.com/jfGphk0.png)
 - **One** FMCW **waveform** is referred to as **a chirp**
 - **One** radar **transmission** is **a frame of** $N_c$ **chirps** equally spaced by chirp cycle time $T_c$
-- The total time $T_f = N_c T_c$ is called the **frame time** (a.k.a the time on target, TOT)
+- The total time $T_f = N_c \: \cdot \: T_c$ is called the **frame time** (a.k.a the time on target, TOT)
 - In order to **avoid** the need for **high-speed sampling**, a frequency **mixer** combines the received signal with the transmitted signal to produce two signals
   - sum frequency $f_T(t) + f_R(t)$ 
   - difference frequency $f_T(t) - f_R(t)$
@@ -294,10 +294,132 @@
 - Under the following **2 assumptions**, the range and Doppler can be **decoupled**
   - the range variations in slow time caused by target motion can be neglected due to the short frame time 
   - the Doppler frequency in fast time can be neglected compared to the beat frequency by utilising a wideband waveform
-  - Range can be estimated from the beat frequency as $r = c \; \cdot \; f_{IF} \; / \; 2S$
-  - Doppler velocity can be estimated from the phase shift between two chirps as $v = \Delta \phi \lambda  \; / \; 4 \pi \: T_c$
-- Next, a range DFT is applied in the fast-time dimension to resolve the frequency change, followed by a Doppler DFT in the slow-time dimension to resolve the phase change
-- As a result, we obtain a 2D complex-valued data matrix called the Range–Doppler map, RD map
+  - the range can be estimated from the beat frequency as $r = c \; \cdot \; f_{IF} \; / \; 2S$
+  - the Doppler velocity can be estimated from the phase shift between two chirps as $v = \Delta \phi \lambda  \; / \; 4 \pi \: T_c$
+- Next, a **range FFT** is applied in the fast-time dimension to resolve the frequency change, followed by a **Doppler FFT** in the slow-time dimension to resolve the phase change. In practice, a window function is applied before FFT to reduce sidelobes
+- As a result, we obtain a **2D complex-valued data matrix** called the Range–Doppler map, **RD map**
+  - the **range** of a cell in the RD map is $\; r_k = k \: \frac{c}{ \; 2 \; \cdot \; B_{IF} \; }$
+  - the **Doppler velocity** of a cell in the RD map is $\; v_l = l \: \frac{\lambda}{ \; 2 \; \cdot \; T_{f} \; }$
+  - $k$ and $l$ denote the indexes of FFT
+  - $B_{IF}$ is the IF bandwidth
+  - $T_{f}$ is the frame time
+  - In practice, FFT is applied due to its computational efficiency compared to DFT
+  - Therefore, the sequence will be zero-padded to the nearest power of 2 if necessary
+- Radar Tx / Rx signals and the resulting **RD map**
+![](https://i.imgur.com/OxFxPCt.png)
+- **Angle** information can be obtained using more than one receive or transmit channel 
+  - e.g. SIMO radars utilize a single Tx and multiple Rx antennas for angle estimation, MISO radars utilize multiple Tx and single Rx antenna for angle estimation
+- Suppose **one object** is located in direction $\theta$
+  - similar to Doppler processing, the induced frequency change between two adjacent receive (or transmit) antennas can be neglected
+  - while the induced phase change can be used for calculating the Direction Of the Angle (**DOA**)
+  - this **phase change** is $\Delta \phi = 2 \pi d \; sin \theta \: / \: \lambda$
+  - where $d$ is the inter-antenna **spacing**
+- Then, a third FFT can be applied to the receive antenna dimension
+  - BTW for conventional radar with a small number of Rx antennas, the sequence is often padded with $N_{FFT} - N_{Rx}$ zeros to achieve a smooth display of the spectrum
+- The **angle** at index $\eta$ is $\; \theta_{\eta} = arcsin(\frac{\eta \lambda}{\; N_{FFT} \;\; })$ 
+  - The **angular resolution** of a SIMO of MISO radar depends on the number of Rx or Tx antennas
+  - The maximum number of Rx antennas is limited by the additional cost of signal processing chains on the device
+- **MIMO radar** operates with multiple channels in both Tx and Rx
+  - e.g. a MIMO radar with $N_{Tx}$ Tx antennas and $N_{Rx}$ Rx antennas can synthesise a virtual array with $N_{Tx} \cdot N_{Rx}$ channels
+  ![](https://i.imgur.com/kXj6oOo.png)
+  - Signals from different Tx antennas should be orthogonal and there are multiple ways to realise waveform orthogonality
+  - such as TDM, FDM, and DDM
+- **TDM**, Time-Division Multiplexing
+  - different Tx antennas transmit chirp signals in turns
+  <img src="https://i.imgur.com/gViDgFS.png"  width=80% height=80%>
+<!--   ![](https://i.imgur.com/gViDgFS.png) -->
+  - Pros. 
+    - widely used for its **simplicity**, which possibly means that it is supported by many radar devices
+  - Cons. 
+    - **additional phase shift compensation** is required to compensate for the motion of detections during the Tx switching time
+    - **reduced detection range** due to the loss of transmitting power
+  - J. Bechter, F. Roos and C. Waldschmidt, "[Compensation of Motion-Induced Phase Errors in TDM MIMO Radars](https://ieeexplore.ieee.org/document/8052088)," in *IEEE Microwave and Wireless Components Letters*, vol. 27, no. 12, pp. 1164-1166, Dec. 2017.
+- FDM, Frequency-Ddivision Multiplexing
+- **DDM**, Doppler-Division Multiplexing
+  - H. Sun, F. Brigui and M. Lesturgie, "[Analysis and comparison of MIMO radar waveforms](https://ieeexplore.ieee.org/abstract/document/7060251)," *2014 International Radar Conference*, 2014, pp. 1-6.
+  - S. Sun, A. P. Petropulu and H. V. Poor, "[MIMO Radar for Advanced Driver-Assistance Systems and Autonomous Driving: Advantages and Challenges](https://ieeexplore.ieee.org/document/9127853)," in *IEEE Signal Processing Magazine*, vol. 37, no. 4, pp. 98-117, July 2020.
+- DDM transmits all Tx waveforms simultaneously and separates them in the Doppler domain
+  - A **Doppler shift** is added to adjacent chirps to realize waveform orthogonality
+  - the Doppler shift for the $k^{\:th\:}$ transmitter is $\: \omega_{k} = \frac{\; 2 \pi \ (k \: - \: 1) \;\;}{N}$
+  - where $N$ is usually selected as the number of Tx antennas $N_{Tx}$
+  <img src="https://i.imgur.com/2uxW05j.png"  width=90% height=90%>
+<!--   ![](https://i.imgur.com/2uxW05j.png) -->
+  - Pros.
+    - supported by many radar devices (like TDM?)
+  - Cons.
+    - more ambiguous, its unambiguous Doppler velocity is reduced to $\frac{\; 1 \;}{N}$ of the original one
+- **Emptyband DDM** can achieve more robust velocity disambiguation by introducing several empty Doppler sub-bands
+  - Gupta, J. [High-End Corner Radar Reference Design](https://www.ti.com/lit/ug/tiduf01/tiduf01.pdf?ts=1661823130303&ref_url=https%253A%252F%252Fwww.ti.com%252Fsitesearch%252Fen-us%252Fdocs%252Funiversalsearch.tsp%253FlangPref%253Den-US%2526searchTerm%253Dmimo%2526nr%253D2). *In Design Guide TIDEP-01027*; Texas Instruments: Dallas, TX, USA, 2022.
+  - Rebut, J.; Ouaknine, A.; Malik, W.; Pérez, P. RADIal Dataset. 2022. (accessed on 30 Aug 2022)
+    - [RADIal](https://github.com/valeoai/RADIal) 有提供 sample code 可以參考
+- After decoupling the received signals, we can obtain a 3D tensor by stacking RD maps with respect to Tx–Rx pairs
+- Then, the DOA can be estimated through the angle FFT along the virtual receiver dimension
+  - Some super-resolution methods can be applied to improve angular resolution
+  - such as Capon, MUSIC, and ESPRIT
+- The resulting 3D tensor is referred to as the Range–Azimuth–Doppler tensor, **RAD tensor** or radar tensor
+- The **Radar Detection Pipeline**
+  - First, RD maps are integrated coherently along the virtual receiver dimension to increase the SNR
+  - Then, a CFAR detector is applied to detect peaks or estimate the noise level in the RD map
+  - Finally, the DOA estimation method is applied for angle estimation
+    - for conventional radars, only azimuth angle is resolved
+    - for next-generation radars, both azimuth and elevation angles can be resolved
+  - The output (of the radar) is a point cloud with measurements of range, Doppler, and angle
+
+
+### **Radar Performances**
+- The performance measurements of automotive radar (in general, can be evaluated in terms of)
+  - maximum **range**
+  - maximum **Doppler velocity**
+  - **FoV**, Field of View
+- The theoretical **maximum detection range** is $\: R_{max} = \sqrt[4]{\frac{\; P_t \: G^2 \: \lambda^2 \: \sigma \;}{\; (4 \pi )^3 \: P_{min} \;\;} }$ where 
+  - $P_t$ is the transmit power
+  - $P_{min}$ is the minimum detectable signal or receiver sensitivity
+  - $\lambda$ is the transmit wavelength
+  - $\sigma$ is the target Radar Cross Section (RCS)
+  - $G$ is the antenna gain
+- Parameter explainations
+  - the wavelength $\lambda$ is **3.9 mm** for automotive **77 GHz** radar
+  - the target RCS $\sigma$
+    - is a measure of the **ability to reflect radar signals** back to the radar receiver
+    - is a **statistical quantity** that varies with the viewing angle and the target material
+    - for **small**er objects such as **pedestrians** and **bikes** have an average RCS value of around $2$ **~** $3 \; dBsm$
+    - for **normal vehicles** it's around $10 \; dBsm$
+    - for **large vehicles** it's around $20 \; dBsm$
+  - the other parameters, such as transmit power, minimum detectable signal, and antenna gain are design parameters aimed at meeting product requirements and regulations
+- Table 2. Equations for radar performance
+    | Definition | Equation |
+    | ---------- | -------- |
+    | Max Unambiguous Range | $R_m = \frac{\;\; c \:\cdot\: B_{IF} \;\;}{2S}$ |
+    | Max Unambiguous Velocity | $v_m = \frac{\;\; \lambda \;\;}{4  T_{c}}$ |
+    | Max Unambiguous Angle | $\theta_{FoV} = \pm \ arcsin(\frac{\;\; \lambda \;\;}{2d})$ |
+    | Range Resolution | $\Delta R = \frac{\;\; c \;\;}{2B}$ |
+    | Velocity Resolution | $\Delta v = \frac{\;\; \lambda \;\;}{\; 2N_c \:\cdot\: N_T \; }$ |
+    | Angular Resolution | $\Delta \theta_{res} = \frac{\;\; \lambda \;\;}{\; N_R  \:\cdot\: d \:\cdot\: cos(\theta) \;}$ |
+    | 3 dB Beamwidth | $\Delta \theta_{3dB} = 2 \: arcsin (\frac{\;\; 1.4 \lambda \;\;}{\pi \:\cdot\: D})$ |
+  - the **maximum range** $R_m$ is limited by the supported IF bandwidth $B_{IF}$ and ADC sampling frequency (in practice)
+  - the **maximum unambiguous velocity** $v_m$ is inversely proportional to the chirp duration $T_c$ 
+  - for MIMO radar, the **maximum unambiguous angle** $\theta_{FoV}$ is dependent on the spacing of antennas $d$ 
+  - the **FoV** is determined by the antenna gain pattern (in practice)
+  - the **resolution** is the ability to separate two close targets w.r.t range, velocity, and angle
+    - higher range resolution requires larger sweep bandwidth $B$
+    - higher Doppler resolution requires longer integration time a.k.a longer frame time $N_c \cdot T_c$
+    - angular resolution depends on **3** things, the number of virtual receivers $N_R$, the object angle $\theta$, and the inter-antenna spacing $d$
+- A
+- Table 3. Typical automotive radar parameters
+    | Parameter | Range |
+    | --------- | ----- |
+    | Transit power |  $10$ ~ $13$ $(dBm)$
+    | TX / RX antenna gain |  $10$ ~ $25$ $(dBi)$
+    | Receiver noise figure |  $10$ ~ $20$ $(dB)$
+    | Target Radar Cross Section (RCS) |  $-10$ ~ $20$ $(dBsm)$
+    | Receiver sensitivity |  $-120$ ~ $-115$ $(dBm)$
+    | Minimum SNR | $10$ ~ $20$ $(dB)$ |
+- In practice, different types of automotive radar are designed for different scenarios
+  - LRR, Long-Range Radar achieves a long detection range and a high angular resolution at the cost of a smaller FoV
+  - SRR, Short-Range Radar uses MIMO techniques to achieve a high angular resolution and large FoV
+- In addition, different chirp configurations are used for different applications
+- A
+
 
 
 
