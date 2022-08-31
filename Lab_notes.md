@@ -123,7 +123,7 @@
   - [AWR1642-Read-Data-Python-MMWAVE-SDK-2](https://github.com/ibaiGorordo/AWR1642-Read-Data-Python-MMWAVE-SDK-2) Python program to read and plot the data in real time from the AWR1642 and IWR1642 mmWave radar boards.
 - AWR1843Boost
   - [AWR1843](https://www.digikey.tw/zh/products/detail/texas-instruments/AWR1843BOOST/10445300?s=N4IgTCBcDaIIIHUBKBGAHAFgMwCED2eAzgC4gC6AvkA) 德州儀器官網介紹，售價 NT$12,689，盒裝，無現貨。
-  - 依據 AWR1642 雷達規格，去模擬生成 Range-Azimuth Doppler, RAD 資料的 [github](https://github.com/ZhangAoCanada/FMCW_Radar_slam)，但還不確定能不能用。 
+  - 依據 AWR1843 雷達規格，去模擬生成 Range-Azimuth Doppler, RAD 資料的 [github](https://github.com/ZhangAoCanada/FMCW_Radar_slam)，但還不確定能不能用。 
   - [AWR1843-Read-Data-Python-MMWAVE-SDK-3-](https://github.com/ibaiGorordo/AWR1843-Read-Data-Python-MMWAVE-SDK-3-)
 - 在 github 搜尋 "[#fmcw](https://github.com/topics/fmcw)" 的 repo ~~找靈感~~ 找可以抄的code
   - [RadarSimPy](https://zpeng.me/index.php/2019/04/07/radarsimpy/) 
@@ -230,12 +230,11 @@
   - 之前大學做專題的時候也讀過幾篇老師指派的 *Sensors* 的文章，只是不清楚他客觀上是不是一個好的期刊。
   - *Sensors* 是 2001 年創刊，Volume多少就是指第幾年出版的，Issue多少就是指哪個領域，每年的每月初會出2個Issue 所以一年共出24份刊物。
   - 舉例來說 [*Sensors* 22.11 (2022): 4208.](https://www.mdpi.com/1424-8220/22/11/4208) 就是 [*Sensors*, Volume 22, Issue 11 (June-1 2022)](https://www.mdpi.com/1424-8220/22/11) 即 2022 年出版的第 11 個 Issue 的第 4208 篇，篇數是從 Issue 1 開始算的，每個 Issue 都收 3~400 篇左右。
-
-| Journal | Impact Factor | Rank | Category | Details |
-| - | - | - | - | - |
-| *Sensors* | 3.275 | 77/266 (Q2) | Engineering, Electrical & Electronic | [Link](https://www.mdpi.com/journal/sensors/stats) |
-| *Sensors* | 3.275 | 22/86 (Q2) | Chemistry, Analytical | [Link](https://www.mdpi.com/journal/sensors/stats) |
-| *Sensors* | 3.275 | 15/64 (Q1) | Instruments & Instrumentation | [Link](https://www.mdpi.com/journal/sensors/stats) |
+    | Journal | Impact Factor | Rank | Category | Details |
+    | - | - | - | - | - |
+    | *Sensors* | 3.275 | 77/266 (Q2) | Engineering, Electrical & Electronic | [Link](https://www.mdpi.com/journal/sensors/stats) |
+    | *Sensors* | 3.275 | 22/86 (Q2) | Chemistry, Analytical | [Link](https://www.mdpi.com/journal/sensors/stats) |
+    | *Sensors* | 3.275 | 15/64 (Q1) | Instruments & Instrumentation | [Link](https://www.mdpi.com/journal/sensors/stats) |
 
 
 
@@ -261,15 +260,15 @@
   - **smaller antennas**, with sub-wavelength sized?
   - R. Ravindran, M. J. Santora and M. M. Jamali, "[Multi-Object Detection and Tracking, Based on DNN, for Autonomous Vehicles: A Review](https://ieeexplore.ieee.org/document/9274366)," in *IEEE Sensors Journal*, vol. 21, no. 5, pp. 5668-5677, 1 March1, 2021.
 - FMCW signal is characterised by the following parameters
-  - the **carrier frequency** $f_c$ (a.k.a the start frequency)
+  - the **carrier frequency** $f_c$ (aka the start frequency)
   - the **sweep bandwidth** $B$
   - the **chirp duration** $T_c$
   - the **slope** $S = B \: / \: T_c$
-- During **one chirp** duration, the frequency increases linearly from **$f_c$** to $f_c + B$ with a slope of $S$
-![](https://i.imgur.com/jfGphk0.png)
+- During **one chirp** duration, frequency increases linearly from **$f_c$** to $f_c + B$ with a slope of $S$
+<img src="https://i.imgur.com/qeRFML2.png"  width=100% height=100%>
 - **One** FMCW **waveform** is referred to as **a chirp**
 - **One** radar **transmission** is **a frame of** $N_c$ **chirps** equally spaced by chirp cycle time $T_c$
-- The total time $T_f = N_c \: \cdot \: T_c$ is called the **frame time** (a.k.a the time on target, TOT)
+- The total time $T_f = N_c \: \cdot \: T_c$ is called the **frame time** (aka the time on target, TOT)
 - In order to **avoid** the need for **high-speed sampling**, a frequency **mixer** combines the received signal with the transmitted signal to produce two signals
   - sum frequency $f_T(t) + f_R(t)$ 
   - difference frequency $f_T(t) - f_R(t)$
@@ -367,7 +366,7 @@
 
 
 ### **Radar Performances**
-- The performance measurements of automotive radar (in general, can be evaluated in terms of)
+- The performance of automotive radar (in general, can be evaluated in terms of )
   - maximum **range**
   - maximum **Doppler velocity**
   - **FoV**, Field of View
@@ -389,22 +388,21 @@
 - Table 2. Equations for radar performance
     | Definition | Equation |
     | ---------- | -------- |
-    | Max Unambiguous Range | $R_m = \frac{\;\; c \:\cdot\: B_{IF} \;\;}{2S}$ |
-    | Max Unambiguous Velocity | $v_m = \frac{\;\; \lambda \;\;}{4  T_{c}}$ |
-    | Max Unambiguous Angle | $\theta_{FoV} = \pm \ arcsin(\frac{\;\; \lambda \;\;}{2d})$ |
-    | Range Resolution | $\Delta R = \frac{\;\; c \;\;}{2B}$ |
-    | Velocity Resolution | $\Delta v = \frac{\;\; \lambda \;\;}{\; 2N_c \:\cdot\: N_T \; }$ |
-    | Angular Resolution | $\Delta \theta_{res} = \frac{\;\; \lambda \;\;}{\; N_R  \:\cdot\: d \:\cdot\: cos(\theta) \;}$ |
-    | 3 dB Beamwidth | $\Delta \theta_{3dB} = 2 \: arcsin (\frac{\;\; 1.4 \lambda \;\;}{\pi \:\cdot\: D})$ |
+    | Max Unambiguous Range | $R_m = \frac{ \; \; c \: \cdot \: B_{IF} \; \; }{2S}$ |
+    | Max Unambiguous Velocity | $v_m = \frac{ \; \; \lambda \; \; }{4 T_{c}}$ |
+    | Max Unambiguous Angle | $\theta_{FoV} = \pm \ arcsin(\frac{ \; \; \lambda \; \; }{2d})$ |
+    | Range Resolution | $\Delta R = \frac{ \; \; c \; \; }{2B}$ |
+    | Velocity Resolution | $\Delta v = \frac{ \; \; \lambda \; \; }{ \; 2N_c \: \cdot \: N_T \; }$ |
+    | Angular Resolution | $\Delta \theta_{res} = \frac{ \; \; \lambda \; \; }{ \; N_R  \: \cdot \: d \: \cdot \: cos(\theta) \; }$ |
+    | 3 dB Beamwidth | $\Delta \theta_{3dB} = 2 \: arcsin (\frac{ \; \; 1.4 \lambda \; \; }{\pi \: \cdot \: D})$ |
   - the **maximum range** $R_m$ is limited by the supported IF bandwidth $B_{IF}$ and ADC sampling frequency (in practice)
   - the **maximum unambiguous velocity** $v_m$ is inversely proportional to the chirp duration $T_c$ 
   - for MIMO radar, the **maximum unambiguous angle** $\theta_{FoV}$ is dependent on the spacing of antennas $d$ 
   - the **FoV** is determined by the antenna gain pattern (in practice)
   - the **resolution** is the ability to separate two close targets w.r.t range, velocity, and angle
     - higher range resolution requires larger sweep bandwidth $B$
-    - higher Doppler resolution requires longer integration time a.k.a longer frame time $N_c \cdot T_c$
+    - higher Doppler resolution requires longer integration time aka longer frame time $N_c \cdot T_c$
     - angular resolution depends on **3** things, the number of virtual receivers $N_R$, the object angle $\theta$, and the inter-antenna spacing $d$
-- A
 - Table 3. Typical automotive radar parameters
     | Parameter | Range |
     | --------- | ----- |
@@ -415,11 +413,163 @@
     | Receiver sensitivity |  $-120$ ~ $-115$ $(dBm)$
     | Minimum SNR | $10$ ~ $20$ $(dB)$ |
 - In practice, different types of automotive radar are designed for different scenarios
-  - LRR, Long-Range Radar achieves a long detection range and a high angular resolution at the cost of a smaller FoV
-  - SRR, Short-Range Radar uses MIMO techniques to achieve a high angular resolution and large FoV
-- In addition, different chirp configurations are used for different applications
-- A
+  - LRR, **Long-Range Radar** achieves a long detection range and a high angular resolution at the cost of a smaller FoV
+  - SRR, **Short-Range Radar** uses MIMO techniques to achieve a high angular resolution and large FoV
+- In addition, different **chirp configurations** are used for different applications. For example, 
+  - LRR needs to detect fast-moving vehicles at distances (therefore, utilises)
+    - a small ramp slope for long-distance detection
+    - a long chirp integration time (frame time) to increase SNR
+    - a small chirp duration to increase maximum velocity 
+    - a short chirp duration for high-velocity resolution
+  - SRR needs to detect vulnerable road users (VRUs) close to the vehicle (therefore, utilises)
+    - a higher sweep bandwidth $B$ for high-range resolution (at the cost of a short range)
+  - J. Hasch, E. Topak, R. Schnabel, T. Zwick, R. Weigel and C. Waldschmidt, "[Millimeter-Wave Technology for Automotive Radar Sensors in the 77 GHz Frequency Band](https://ieeexplore.ieee.org/document/6127923)," in *IEEE Transactions on Microwave Theory and Techniques*, vol. 60, no. 3, pp. 845-860, March 2012.
+- **Multi-mode radar** can work in different modes simultaneously by sending chirps that are switched sequentially with different configurations
 
+
+
+### **Datasets, Labelling, and Augmentation**
+- Data play a key role in the learning-based approaches
+- Radar Datasets w.r.t their **data representations**, **tasks**, scenarios, and **annotation types** are summarised below
+- Also introduce **extrinsic calibration** and **cross-modality labelling** techniques
+- And further investigate **data augmentation methods** and the potential use of **synthetic radar data** to improve data **diversity**
+
+
+### **Radar Datasets**
+- Radar classification w.r.t their **resolution**
+  - LR, Low Resolution
+    - FMCW Radar?
+  - HR, High Resolution 
+    - Polarimetric Radar
+    - Cooperative Radars
+    - Multi-chip Cascaded MIMO Radar
+    - Synthetic Aperture Radar (SAR)
+    - Spinning Radar
+  - most off-the-shelf radars will output a point cloud with range, azimuth angle, Doppler velocity, and RCS
+    - next-generation 4D radar can also measure elevation angle
+- Radar classification w.r.t the **output** data type
+  - **ADC** data
+  - **RA / RD maps**
+  - **RAD tensors**
+  - some radar prototypes can be configured to output these radar raw data
+- Radar classification w.r.t. the **task** (the role) in autonomous driving
+  - **localization** 
+  - **detection**
+- types of annotations
+  - **2D bounding boxes**
+    - labelled in Bird’s Eye View (**BEV**) and with **orientation** information
+    - sometimes referred to as pseudo-3D boxes
+  - **3D bounding boxes** 
+    - 2D bboxes plus **height** information and **pitch angle**
+    - **NOTE**. radar detections within the bounding box could be ghost detection or clutter
+  - **Pointwise** annotations 
+    - can provide semantic information at a finer granularity than bounding boxes
+    - is a better way to capture the noisy nature of the radar point cloud
+    - **NOTE**. the annotated points do not necessarily reflect the shape information
+
+
+### **Data Labelling**
+- Labelling radar data is a difficult task because both radar point clouds and pre-CFAR data are hard to interpret by human labellers
+- To reduce labelling efforts, most datasets adopt a semi-automatic labelling framework, which includes **2** steps:
+  - cross-modality pre-labelling 
+  - fine-tuning
+- In the first step, a well-trained detector on other modalities is leveraged for radar labelling
+- In the second step, manual inspection is required to correct pre-labelling errors
+
+
+### **Data Augmentation**
+- Data augmentation plays an essential role in improving the generalization of deep learning models
+- Data augmentation techniques can significantly improve the performance of **RA-map**-based radar detection
+  - according to the summary report of the Radar Object Detection 2021 (ROD2021) Challenge
+    - Wang, Yizhou, et al. "[ROD2021 Challenge: A Summary for Radar Object Detection Challenge for Autonomous Driving Applications](https://dl.acm.org/doi/10.1145/3460426.3463658)." *Proceedings of the 2021 International Conference on Multimedia Retrieval*. 2021.
+- Base on the **radar representation** / data structure, the augmentation techniques can be divided into **2** types
+  - **spectral**-based for pre-CFAR data
+  - **pointcloud**-based for pointcloud
+- It can also be featured as **local** or **global** depending on whether the entity being augmented is a **single object** or the **entire scene**
+- **DANet** 
+  - **spectral** augmentations
+    - take **RA maps** as input
+  - **global** augmentations
+    - adopts several methods borrowed from Computer Vision
+  - provide **5** methods
+    - mirroring 
+    - resizing 
+    - random combination 
+    - adding Gaussian noise 
+    - temporal reversing
+  - physical fidelity is not explicitly considered
+  - Ju, B.; Yang, W.; Jia, J.; Ye, X.; Chen, Q.; Tan, X.; Sun, H.; Shi, Y.; Ding, E. "[DANet: Dimension Apart Network for Radar Object Detection](https://dl.acm.org/doi/abs/10.1145/3460426.3463656)." In *Proceedings of the 2021 International Conference on Multimedia Retrieval (ICMR)*, Taipei, Taiwan, 16–19 November 2021; pp. 533–539.
+- **RADIO**
+  - provide **4** types of **spectral** augmentations
+  - **local** augmentations
+    - **attenuation** by dampening the cells according to an empirical relationship between the received power and range
+    - **resolution change** by nearest-neighbour interpolation according to the object size
+  - **global** augmentations
+    - adding **speckle noise**, the noise can an be approximated as a multiplicative truncated exponential distribution or multiplicative Gaussian noise
+      - J. Ding, B. Chen, H. Liu and M. Huang, "[Convolutional Neural Network With Data Augmentation for SAR Target Recognition](https://ieeexplore.ieee.org/document/7393462)," in *IEEE Geoscience and Remote Sensing Letters*, vol. 13, no. 3, pp. 364-368, March 2016.
+    - **background shift** by adding or subtracting a constant value to background cells
+  - Sheeny, Marcel, Andrew Wallace, and Sen Wang. "[Radio: Parameterized generative radar data augmentation for small datasets](https://www.mdpi.com/2076-3417/10/11/3861)." *Applied Sciences* 10.11 (2020): 3861.
+- **RAMP-CNN** 
+  - **global** geometric augmentations 
+    - also take **RA maps** as input
+  - **geometric** method 
+    - first translates and rotates RA maps in Cartesian coordinate 
+    - then projects back to the original polar coordinate
+    - the out-of-boundaries areas are cropped off
+    - the blank areas are filled with background noises
+    - **NOTE**. energy loss and antenna gain loss due to the transformation are compensated according to the radar equation (in order to meet the physical fidelity)
+- **Point cloud augmentation** 
+  - aims to introduce invariance to **geometric** transformations
+  - improve the signal-to-clutter ratio
+  - can be easily extended to multiple modalities by properly handling occlusion issues
+    - Wang, Chunwei, et al. "[Pointaugmenting: Cross-modal augmentation for 3d object detection](https://openaccess.thecvf.com/content/CVPR2021/papers/Wang_PointAugmenting_Cross-Modal_Augmentation_for_3D_Object_Detection_CVPR_2021_paper.pdf)." *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition*. 2021.
+    - Zhang, Wenwei, Zhe Wang, and Chen Change Loy. "[Exploring data augmentation for multi-modality 3D object detection](https://arxiv.org/pdf/2012.12741.pdf)." *arXiv preprint arXiv:2012.12741* (2020).
+  - many works utilise augmentation to increase the point cloud density to handle the **sparsity issue**
+- **Geometric** augmentation
+  - can be applied locally to a single target
+  - or globally to the entire scene
+  ![](https://i.imgur.com/Z2znScp.png)
+- **Copy–paste** augmentation
+  - copy the detected object from other frames and pastes it into the same location in the current frame
+- **NOTE**. a limitation of these two methods is that they do not change the distribution of detections, while radar points are actually randomly distributed over the object in different frames
+
+
+### **Synthetic Data**
+- Synthetic datasets are widely used in Computer Vision and LiDAR perception 
+- Networks trained with synthetic data can actually generalize well in the real-world
+  - Johnson-Roberson, Matthew, et al. "[Driving in the matrix: Can virtual worlds replace human-generated annotations for real world tasks?](https://arxiv.org/pdf/1610.01983.pdf)." *arXiv preprint arXiv:1610.01983* (2016).
+- The labelling cost can be completely avoided
+- **Physics-based** simulation methods
+  - e.g. ray tracing
+    - C. Schüßler, M. Hoffmann, J. Bräunig, I. Ullmann, R. Ebelt and M. Vossiek, "[A Realistic Radar Ray Tracing Simulator for Large MIMO-Arrays in Automotive Environments](https://ieeexplore.ieee.org/document/9533181)," in *IEEE Journal of Microwaves*, vol. 1, no. 4, pp. 962-974, Oct. 2021.
+    - M. Holder et al., "[Measurements revealing Challenges in Radar Sensor Modeling for Virtual Validation of Autonomous Driving](https://ieeexplore.ieee.org/document/8569423)," *2018 21st International Conference on Intelligent Transportation Systems (ITSC)*, 2018, pp. 2616-2622.
+  - Pros. 
+    - can model multi-path propagation 
+    - can also model separability issue of close objects
+  - Cons. 
+    - difficult to capture the RCS variation in azimuth with current methods
+- **Model-based** augmentation 
+  - the spatial distribution of radar detections over the vehicle can be approximated by 2 kinds of model
+    - surface–volume model
+    - volcanormal measurement model
+- There are some seminal works utilizing learning-based generative models for radar simulation
+- **Deep stochastic radar model**
+  - T. A. Wheeler, M. Holder, H. Winner and M. J. Kochenderfer, "[Deep stochastic radar models](https://ieeexplore.ieee.org/document/7995697)," *2017 IEEE Intelligent Vehicles Symposium (IV)*, 2017, pp. 47-53.
+- Generative models
+  - GAN-based LiDAR-to-radar generation
+    - Wang, Leichen, Bastian Goldluecke, and Carsten Anklam. "[L2R GAN: LiDAR-to-radar translation](https://openaccess.thecvf.com/content/ACCV2020/papers/Wang_L2R_GAN_LiDAR-to-Radar_Translation_ACCV_2020_paper.pdf)." *Proceedings of the Asian Conference on Computer Vision (ACCV)*. 2020.
+  - GAN-based radar-to-image generation
+    - Lekic, Vladimir, and Zdenka Babic. "[Automotive radar and camera fusion using generative adversarial networks](https://www.sciencedirect.com/science/article/pii/S1077314219300530)." *Computer Vision and Image Understanding* 184 (2019): 1-8.
+  - VAE-based radar-to-image generation
+    - C. Ditzel and K. Dietmayer, "[GenRadar: Self-Supervised Probabilistic Camera Synthesis Based on Radar Frequencies](https://ieeexplore.ieee.org/document/9570339)," in *IEEE Access*, vol. 9, pp. 148994-149042, 2021.
+
+
+### **Radar Depth and Velocity Estimation**
+- Radar can measure range and Doppler velocity, but both of them **cannot be directly used** for downstream tasks
+- The range measurements are sparse and therefore difficult to associate with their visual correspondences
+- The Doppler velocity is measured in the radial axis, therefore, cannot be directly used for tracking
+- The depth completion and velocity estimation methods for radar point clouds are summarised below
+- **To be continued...**
 
 
 
@@ -530,13 +680,6 @@
     - **LSTM**, more sensitive to the amount of training examples
 - "Class imbalance problem" in radar datasets could be ease by using **classifier binarisation techniques**
   - N. Scheiner, N. Appenrodt, J. Dickmann and B. Sick, "[Radar-based Feature Design and Multiclass Classification for Road User Recognition](https://ieeexplore.ieee.org/document/8500607)," *2018 IEEE Intelligent Vehicles Symposium (IV)*, 2018, pp. 779-786.
-
-
-### 08/27
-- 論文引用格式範例說明 [Purdue Online Writing Lab](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html) 引用碩論 APA 格式舉例:
-  - 陳羽歡。「探討靈芝蛋白對於腸道表皮細胞完整性的影響」。碩士論文，國立臺灣大學免疫學研究所，2019。＜[https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28)＞。
-  - Yu-Huan Chen. (2019). *Study the effect of Ling-Zhi 8 (LZ-8) on integrity of intestinal epithelial cell (IEC)* (DOI. 10.6342/NTU201901585) [Master Thesis, National Taiwan University] [https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28).
-  - 台灣碩博論文網沒有看到 Publication No. 所以先放 DOI 頂一下。
 
 
 
@@ -708,8 +851,16 @@
 
 
 
-### 08/29
-- A
+### 08/27
+- 論文引用格式範例說明 [Purdue Online Writing Lab](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html) 引用碩論 APA 格式舉例:
+  - 陳羽歡。「探討靈芝蛋白對於腸道表皮細胞完整性的影響」。碩士論文，國立臺灣大學免疫學研究所，2019。＜[https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28)＞。
+  - Yu-Huan Chen. (2019). *Study the effect of Ling-Zhi 8 (LZ-8) on integrity of intestinal epithelial cell (IEC)* (DOI. 10.6342/NTU201901585) [Master Thesis, National Taiwan University] [https://hdl.handle.net/11296/6xpf28](https://hdl.handle.net/11296/6xpf28).
+  - 台灣碩博論文網沒有看到 Publication No. 所以先放 DOI 頂一下。
+
+
+
+### 08/31
+- 跟王老師的下一次 meeting 是下週三 09/07 下午 4 點
 
 
 
