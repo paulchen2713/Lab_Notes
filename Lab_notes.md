@@ -188,7 +188,7 @@
     - Bo Ju, Wei Yang, Jinrang Jia, Xiaoqing Ye, Qu Chen, Xiao Tan, Hao Sun, Yifeng Shi, and Errui Ding. 2021. [DANet: Dimension Apart Network for Radar Object Detection](https://doi.org/10.1145/3460426.3463656). *In Proceedings of the 2021 International Conference on Multimedia Retrieval (ICMR '21)*. Association for Computing Machinery, New York, NY, USA, 533–539. 
     - Chih-Chung Hsu, Chieh Lee, Lin Chen, Min-Kai Hung, Yu-Lun Lin, and Xian-Yu Wang. 2021. [Efficient-ROD: Efficient Radar Object Detection based on Densely Connected Residual Network](https://doi.org/10.1145/3460426.3463657). *In Proceedings of the 2021 International Conference on Multimedia Retrieval (ICMR '21)*. Association for Computing Machinery, New York, NY, USA, 526–532. 
     - Yizhou Wang, Jenq-Neng Hwang, Gaoang Wang, Hui Liu, Kwang-Ju Kim, Hung-Min Hsu, Jiarui Cai, Haotian Zhang, Zhongyu Jiang, and Renshu Gu. 2021. [ROD2021 Challenge: A Summary for Radar Object Detection Challenge for Autonomous Driving Applications](https://doi.org/10.1145/3460426.3463658). *In Proceedings of the 2021 International Conference on Multimedia Retrieval (ICMR '21)*. Association for Computing Machinery, New York, NY, USA, 553–559. 
-  - **Range Azimuth Doppler, RAD map**
+  - **Range Azimuth Doppler, RAD tensor**
     - X. Gao, G. Xing, S. Roy and H. Liu, "[Experiments with mmWave Automotive Radar Test-bed](https://ieeexplore.ieee.org/abstract/document/9048939)," *2019 53rd Asilomar Conference on Signals, Systems, and Computers*, 2019, pp. 1-6.
     - Major, Bence, et al. "[Vehicle detection with automotive radar using deep learning on range-azimuth-doppler tensors](https://openaccess.thecvf.com/content_ICCVW_2019/papers/CVRSUAD/Major_Vehicle_Detection_With_Automotive_Radar_Using_Deep_Learning_on_Range-Azimuth-Doppler_ICCVW_2019_paper.pdf)." *Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops*. 2019.
     - A. Palffy, J. Dong, J. F. P. Kooij and D. M. Gavrila, "[CNN Based Road User Detection Using the 3D Radar Cube](https://ieeexplore.ieee.org/abstract/document/8962258)," in *IEEE Robotics and Automation Letters*, vol. 5, no. 2, pp. 1263-1270, April 2020.
@@ -698,7 +698,7 @@
     - M. Gall, M. Gardill, T. Horn and J. Fuchs, "[Spectrum-based Single-Snapshot Super-Resolution Direction-of-Arrival Estimation using Deep Learning](https://ieeexplore.ieee.org/document/9080185)," *2020 German Microwave Conference (GeMiC)*, 2020, pp. 184-187.
     - J. Fuchs, M. Gardill, M. Lübke, A. Dubey and F. Lurz, "[A Machine Learning Perspective on Automotive Radar Direction of Arrival Estimation](https://ieeexplore.ieee.org/document/9674901)," in *IEEE Access*, vol. 10, pp. 6775-6797, 2022.
     - C. Grimm, T. Fei, E. Warsitz, R. Farhoud, T. Breddermann and R. Haeb-Umbach, "[Warping of Radar Data Into Camera Image for Cross-Modal Supervision in Automotive Applications](https://ieeexplore.ieee.org/abstract/document/9797876)," in *IEEE Transactions on Vehicular Technology*, 2022.
-- A
+- **To be continued...**
 
 
 
@@ -860,8 +860,33 @@
 
 
 ### 08/31
-- 跟王老師的下一次 meeting 是下週三 09/07 下午 4 點
+- 跟王老師的下一次 meeting 是下下週三 09/14 下午 4 點
+- 近期目標
+  - 可以先產不同數量的 multi-target 訓練資料 + 有 clutter 的版本?
+    - clutter 算是某種 ghost target 情況?
+    - 但已經忘記郁庭的 code 的運作模式，又要再重頭開始 trace 一遍@@
+  - 然後試試看 YOLO-CFAR 去偵測多目標的情況
+    - 應該要可以完勝、預期應該是輕輕鬆鬆
+    - 很久沒看 YOLOv3 希望能正常跑
+    - YOLOv3 在 CPU 跟 GPU 上跑的程式設定不太一樣，都是 albumentation 那邊出問題，但實際問題是為啥還沒解，理論上應該是要像 Lab 電腦在 CPU 跑那樣，標籤應該要跟著 augmentation 一起動，而不是把 bbox augmentation 註解掉還能正常跑?
+  - 確認之前的 code 都能正常跑，看第二次 trace 能不能有不一樣的收穫 ((現在應該勉強算有點了解 CFAR 了吧QQ
+- 階段性目標 (沒有優先度先後順序) 
+  - 搜尋除了透過畫頻譜圖 (RA / RD map, RAD tensor) 去分析之外，有什麼方法可以直接利用或處理 raw data 
+    - 怎麼模擬 ADC raw data? 而不是直接生成 RD map
+    - 也許可以先看看這篇 F. C. Akyon, Y. K. Alp, G. Gok and O. Arikan, "[Classification of Intra-Pulse Modulation of Radar Signals by Feature Fusion Based Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8553176)," *2018 26th European Signal Processing Conference (EUSIPCO)*, 2018, pp. 2290-2294.
+    - 了解上面那篇所謂的 "處理 raw signal" 是什麼意思? 跟我們想像的是同一件事嗎?
+  - 試著將模擬更貼近真實世界的雷達訊號，像假設雷達打到行人或汽車的回波應該要不一樣，在寫模擬的時候得考慮到差異，且前處理或特徵提取時必須得有辦法保留這些差異的特徵
+    - 怎麼模擬醬假設下的收到雷達回波訊號、CCM?
+    - 也許能從 RCS 下手? 也許能找到考慮 RCS 參數的 RD map 模擬
+  - 如果區分行人、自行車、機車、汽車、卡車太困難，也許可以至少做到區分小目標、中目標、大目標
+    - 怎麼定義、區分大跟小?
+  - 雖然論文直接寫說雷達由於解析度太差，即使有預測類別也是以影像或光達資料為準，但還是找找看有沒有方法能從 ADC data, RD/RA map, RAD tensor 去分類的?
+    - 類別預測 vision > LiDAR > radar
+  - 考慮自己重寫 RD map / RA map / RAD tensor 的模擬，仰賴郁庭的 legacy code 真的不知道啥時會出事@@
 
+
+### 09/01 到 09/03
+- 都在耍廢，毫無作為
 
 
 ### 值得關注的作者
