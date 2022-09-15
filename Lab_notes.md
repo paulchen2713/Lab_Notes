@@ -468,7 +468,7 @@
     - **NOTE**. the annotated points do not necessarily reflect the shape information
 
 
-### **Data Labelling**
+<!-- ### **Data Labelling**
 - Labelling radar data is a difficult task because both radar point clouds and pre-CFAR data are hard to interpret by human labellers
 - To reduce labelling efforts, most datasets adopt a semi-automatic labelling framework, which includes **2** steps:
   - cross-modality pre-labelling 
@@ -531,7 +531,7 @@
   ![](https://i.imgur.com/Z2znScp.png)
 - **Copy–paste** augmentation
   - copy the detected object from other frames and pastes it into the same location in the current frame
-- **NOTE**. a limitation of these two methods is that they do not change the distribution of detections, while radar points are actually randomly distributed over the object in different frames
+- **NOTE**. a limitation of these two methods is that they do not change the distribution of detections, while radar points are actually randomly distributed over the object in different frames -->
 
 
 ### **Synthetic Data**
@@ -605,6 +605,7 @@
 - **Classification**
   - then sent to a ML classifier
 - Improvements can be made upon each of these **4** steps
+
 
 ### **CFAR**
 - CFAR is usually executed in an on-chip DSP, so the choice of method is restricted by hardware support
@@ -702,7 +703,7 @@
 
 
 
-### **Sensor Fusion for Detection**
+<!-- ### **Sensor Fusion for Detection**
 - Different sensors observe and represent an object with different features
 - Sensor fusion can be considered as the mapping of different modalities into a common **Latent Space** where different features of the same object can be associated together
 - Conventional taxonomy classify fusion architectures into 3 types, which is ambiguous
@@ -834,11 +835,11 @@
   - even though we always refer to radar as an all-weather sensor, **robustness in adverse weather** is not well tested in many radar fusion methods
 - Firstly, **multi-path effects** need to be explicitly considered in object detection
 - Secondly, need to alleviate the problem of **over-confidence** in radar classification and **estimate** the **uncertainty** in bounding box regression
-- Thirdly, the fusion architecture should have adaptive mechanisms to take full advantage of radar’s **all-weather capabilities**
+- Thirdly, the fusion architecture should have adaptive mechanisms to take full advantage of radar’s **all-weather capabilities** -->
 
 
 
-### **Future Research Directions**
+<!-- ### **Future Research Directions**
 - Many research efforts have focused on developing models for detection tasks
 - There are also some unexplored research topics or fundamental questions to be addressed
   - urgent need for **High-Quality Datasets**
@@ -847,7 +848,7 @@
   - **Motion Forecasting**
 - Consider the perceptual system as a whole can **extend** the end-to-end learning **framework** forward or backward
   - **forward**, i.e. joint learning with **interference mitigation**
-  - **backward**, i.e. **motion prediction** 
+  - **backward**, i.e. **motion prediction**  -->
 
 
 
@@ -995,6 +996,35 @@
   - pre-CFAR
     - M. Meyer, G. Kuschk and S. Tomforde, "[Graph Convolutional Networks for 3D Object Detection on Radar Data](https://ieeexplore.ieee.org/document/9607427)," *2021 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)*, 2021, pp. 3053-3062.
     - B. Major et al., "[Vehicle Detection With Automotive Radar Using Deep Learning on Range-Azimuth-Doppler Tensors](https://ieeexplore.ieee.org/document/9022248)," *2019 IEEE/CVF International Conference on Computer Vision Workshop (ICCVW)*, 2019, pp. 924-932.
+
+
+### 09/15
+- 下次 meeting 是 9/21 下週三下午 3 點
+- 超短期目標
+  - 確認有哪些公開資料集可以取得，最好有附論文或範例程式
+    - 簡介資料集的樣子、型態
+    - 怎麼蒐集的?
+    - 標籤標記的樣式、格式
+    - 要怎麼用?
+  - 資料集可以用在哪些任務
+  - 相關方法有哪些
+    - 例如，已經很多人用 YOLOv3 去解 SAR images 資料集的目標偵測問題
+  - 準備一個回顧或彙整
+    - 總結看過哪些資料集
+    - 為什麼用? 或為什麼不用?
+    - 要用的話，要怎麼用? 要引用誰的論文才不失學術倫理?
+- 跟鍾老師討論多個質點的雷達模擬假設合理性
+  - 結論是鍾老師覺得這樣假設沒問題，只是還有很多細節需要釐清
+  - 假設人的雷達回波是 3 個理想反射點；車的回波是 10 個理想反射點，這裡是先武斷假設點數
+    - 最好能找到文獻支撐理想反射點點數的假設
+  - 得考慮雷達的近場、遠場問題
+    - 近場意思是，多個理想反射點的物理特性可以分開考慮
+    - 遠場的話，因為雷達跟受測物距離很遠，儘管有多個反射點，但回波看起來就是一個點的反射
+    - 多近是近? 多遠是遠?
+  - 從陣列訊號處理來看，10~20倍是個大致合理的參數
+    - 若雷達跟受測物的距離為受測物大小的10倍以內，通常可以視為近場
+    - 反之，若雷達跟受測物的距離為受測物大小的20倍以上，通常視為遠場
+    - 而10~20倍的範圍則是某種模糊空間
 
 
 
