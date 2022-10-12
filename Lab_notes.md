@@ -1,5 +1,4 @@
 # Lab notes
-## Literature review
 ### First Year
 - 11/29 
   - J. Shao and J. Zhang, "[Communication-Computation Trade-off in Resource-Constrained Edge Inference](https://ieeexplore.ieee.org/document/9311935)," in *IEEE Communications Magazine*, vol. 58, no. 12, pp. 20-26, December 2020. (cited by 38)
@@ -238,7 +237,9 @@
 
 
 
-### **Radar Signal Processing Fundamentals**
+### **Radar Signal Processing**
+- Zhou, Yi, et al. "[Towards Deep Radar Perception for Autonomous Driving: Datasets, Methods, and Challenges](https://www.mdpi.com/1424-8220/22/11/4208)." *Sensors* 22.11 (2022): 4208.
+####  **Radar Signal ProcessingFundamentals**
 - Different radar devices vary in their sensing capabilities
 - It is important to leverage radar domain knowledge 
   - to understand the **performance boundary** 
@@ -247,7 +248,7 @@
 - classical signal processing pipeline for automotive radar applications
 
 
-### **FMCW Radar Signal Processing**
+#### **FMCW Radar Signal Processing**
 - Off-the-shelf automotive radars operate with a sequence of **linear FMCW signals** (Frequency-Modulated Continuous-Wave, FMCW) to simultaneously measure **range**, **angle**, and **velocity**
 - automotive radar is allowed to use **2** frequency bands in mmwaves 
   - 24 GHz (24~24.25 GHz)
@@ -365,77 +366,16 @@
   - The output (of the radar) is a point cloud with measurements of range, Doppler, and angle
 
 
-### **Radar Performances**
-- The performance of automotive radar (in general, can be evaluated in terms of )
-  - maximum **range**
-  - maximum **Doppler velocity**
-  - **FoV**, Field of View
-- The theoretical **maximum detection range** is $\: R_{max} = \sqrt[4]{\frac{\; P_t \: G^2 \: \lambda^2 \: \sigma \;}{\; (4 \pi )^3 \: P_{min} \;\;} }$ where 
-  - $P_t$ is the transmit power
-  - $P_{min}$ is the minimum detectable signal or receiver sensitivity
-  - $\lambda$ is the transmit wavelength
-  - $\sigma$ is the target Radar Cross Section (RCS)
-  - $G$ is the antenna gain
-- Parameter explainations
-  - the wavelength $\lambda$ is **3.9 mm** for automotive **77 GHz** radar
-  - the target RCS $\sigma$
-    - is a measure of the **ability to reflect radar signals** back to the radar receiver
-    - is a **statistical quantity** that varies with the viewing angle and the target material
-    - for **small**er objects such as **pedestrians** and **bikes** have an average RCS value of around $2$ **~** $3 \; dBsm$
-    - for **normal vehicles** it's around $10 \; dBsm$
-    - for **large vehicles** it's around $20 \; dBsm$
-  - the other parameters, such as transmit power, minimum detectable signal, and antenna gain are design parameters aimed at meeting product requirements and regulations
-- Table 2. Equations for radar performance
-    | Definition | Equation |
-    | ---------- | -------- |
-    | Max Unambiguous Range | $R_m = \frac{ \; \; c \: \cdot \: B_{IF} \; \; }{2S}$ |
-    | Max Unambiguous Velocity | $v_m = \frac{ \; \; \lambda \; \; }{4 T_{c}}$ |
-    | Max Unambiguous Angle | $\theta_{FoV} = \pm \ arcsin(\frac{ \; \; \lambda \; \; }{2d})$ |
-    | Range Resolution | $\Delta R = \frac{ \; \; c \; \; }{2B}$ |
-    | Velocity Resolution | $\Delta v = \frac{ \; \; \lambda \; \; }{ \; 2N_c \: \cdot \: N_T \; }$ |
-    | Angular Resolution | $\Delta \theta_{res} = \frac{ \; \; \lambda \; \; }{ \; N_R  \: \cdot \: d \: \cdot \: cos(\theta) \; }$ |
-    | 3 dB Beamwidth | $\Delta \theta_{3dB} = 2 \: arcsin (\frac{ \; \; 1.4 \lambda \; \; }{\pi \: \cdot \: D})$ |
-  - the **maximum range** $R_m$ is limited by the supported IF bandwidth $B_{IF}$ and ADC sampling frequency (in practice)
-  - the **maximum unambiguous velocity** $v_m$ is inversely proportional to the chirp duration $T_c$ 
-  - for MIMO radar, the **maximum unambiguous angle** $\theta_{FoV}$ is dependent on the spacing of antennas $d$ 
-  - the **FoV** is determined by the antenna gain pattern (in practice)
-  - the **resolution** is the ability to separate two close targets w.r.t range, velocity, and angle
-    - higher range resolution requires larger sweep bandwidth $B$
-    - higher Doppler resolution requires longer integration time aka longer frame time $N_c \cdot T_c$
-    - angular resolution depends on **3** things, the number of virtual receivers $N_R$, the object angle $\theta$, and the inter-antenna spacing $d$
-- Table 3. Typical automotive radar parameters
-    | Parameter | Range |
-    | --------- | ----- |
-    | Transit power |  $10$ ~ $13$ $(dBm)$
-    | TX / RX antenna gain |  $10$ ~ $25$ $(dBi)$
-    | Receiver noise figure |  $10$ ~ $20$ $(dB)$
-    | Target Radar Cross Section (RCS) |  $-10$ ~ $20$ $(dBsm)$
-    | Receiver sensitivity |  $-120$ ~ $-115$ $(dBm)$
-    | Minimum SNR | $10$ ~ $20$ $(dB)$ |
-- In practice, different types of automotive radar are designed for different scenarios
-  - LRR, **Long-Range Radar** achieves a long detection range and a high angular resolution at the cost of a smaller FoV
-  - SRR, **Short-Range Radar** uses MIMO techniques to achieve a high angular resolution and large FoV
-- In addition, different **chirp configurations** are used for different applications. For example, 
-  - LRR needs to detect fast-moving vehicles at distances (therefore, utilises)
-    - a small ramp slope for long-distance detection
-    - a long chirp integration time (frame time) to increase SNR
-    - a small chirp duration to increase maximum velocity 
-    - a short chirp duration for high-velocity resolution
-  - SRR needs to detect vulnerable road users (VRUs) close to the vehicle (therefore, utilises)
-    - a higher sweep bandwidth $B$ for high-range resolution (at the cost of a short range)
-  - J. Hasch, E. Topak, R. Schnabel, T. Zwick, R. Weigel and C. Waldschmidt, "[Millimeter-Wave Technology for Automotive Radar Sensors in the 77 GHz Frequency Band](https://ieeexplore.ieee.org/document/6127923)," in *IEEE Transactions on Microwave Theory and Techniques*, vol. 60, no. 3, pp. 845-860, March 2012.
-- **Multi-mode radar** can work in different modes simultaneously by sending chirps that are switched sequentially with different configurations
 
 
-
-### **Datasets, Labelling, and Augmentation**
+#### **Datasets, Labelling, and Augmentation**
 - Data play a key role in the learning-based approaches
 - Radar Datasets w.r.t their **data representations**, **tasks**, scenarios, and **annotation types** are summarised below
 - Also introduce **extrinsic calibration** and **cross-modality labelling** techniques
 - And further investigate **data augmentation methods** and the potential use of **synthetic radar data** to improve data **diversity**
 
 
-### **Radar Datasets**
+#### **Radar Datasets**
 - Radar classification w.r.t their **resolution**
   - LR, Low Resolution
     - FMCW Radar?
@@ -468,73 +408,9 @@
     - **NOTE**. the annotated points do not necessarily reflect the shape information
 
 
-<!-- ### **Data Labelling**
-- Labelling radar data is a difficult task because both radar point clouds and pre-CFAR data are hard to interpret by human labellers
-- To reduce labelling efforts, most datasets adopt a semi-automatic labelling framework, which includes **2** steps:
-  - cross-modality pre-labelling 
-  - fine-tuning
-- In the first step, a well-trained detector on other modalities is leveraged for radar labelling
-- In the second step, manual inspection is required to correct pre-labelling errors
 
 
-### **Data Augmentation**
-- Data augmentation plays an essential role in improving the generalization of deep learning models
-- Data augmentation techniques can significantly improve the performance of **RA-map**-based radar detection
-  - according to the summary report of the Radar Object Detection 2021 (ROD2021) Challenge
-    - Wang, Yizhou, et al. "[ROD2021 Challenge: A Summary for Radar Object Detection Challenge for Autonomous Driving Applications](https://dl.acm.org/doi/10.1145/3460426.3463658)." *Proceedings of the 2021 International Conference on Multimedia Retrieval*. 2021.
-- Base on the **radar representation** / data structure, the augmentation techniques can be divided into **2** types
-  - **spectral**-based for pre-CFAR data
-  - **pointcloud**-based for pointcloud
-- It can also be featured as **local** or **global** depending on whether the entity being augmented is a **single object** or the **entire scene**
-- **DANet** 
-  - **spectral** augmentations
-    - take **RA maps** as input
-  - **global** augmentations
-    - adopts several methods borrowed from Computer Vision
-  - provide **5** methods
-    - mirroring 
-    - resizing 
-    - random combination 
-    - adding Gaussian noise 
-    - temporal reversing
-  - physical fidelity is not explicitly considered
-  - Ju, B.; Yang, W.; Jia, J.; Ye, X.; Chen, Q.; Tan, X.; Sun, H.; Shi, Y.; Ding, E. "[DANet: Dimension Apart Network for Radar Object Detection](https://dl.acm.org/doi/abs/10.1145/3460426.3463656)." In *Proceedings of the 2021 International Conference on Multimedia Retrieval (ICMR)*, Taipei, Taiwan, 16–19 November 2021; pp. 533–539.
-- **RADIO**
-  - provide **4** types of **spectral** augmentations
-  - **local** augmentations
-    - **attenuation** by dampening the cells according to an empirical relationship between the received power and range
-    - **resolution change** by nearest-neighbour interpolation according to the object size
-  - **global** augmentations
-    - adding **speckle noise**, the noise can an be approximated as a multiplicative truncated exponential distribution or multiplicative Gaussian noise
-      - J. Ding, B. Chen, H. Liu and M. Huang, "[Convolutional Neural Network With Data Augmentation for SAR Target Recognition](https://ieeexplore.ieee.org/document/7393462)," in *IEEE Geoscience and Remote Sensing Letters*, vol. 13, no. 3, pp. 364-368, March 2016.
-    - **background shift** by adding or subtracting a constant value to background cells
-  - Sheeny, Marcel, Andrew Wallace, and Sen Wang. "[Radio: Parameterized generative radar data augmentation for small datasets](https://www.mdpi.com/2076-3417/10/11/3861)." *Applied Sciences* 10.11 (2020): 3861.
-- **RAMP-CNN** 
-  - **global** geometric augmentations 
-    - also take **RA maps** as input
-  - **geometric** method 
-    - first translates and rotates RA maps in Cartesian coordinate 
-    - then projects back to the original polar coordinate
-    - the out-of-boundaries areas are cropped off
-    - the blank areas are filled with background noises
-    - **NOTE**. energy loss and antenna gain loss due to the transformation are compensated according to the radar equation (in order to meet the physical fidelity)
-- **Point cloud augmentation** 
-  - aims to introduce invariance to **geometric** transformations
-  - improve the signal-to-clutter ratio
-  - can be easily extended to multiple modalities by properly handling occlusion issues
-    - Wang, Chunwei, et al. "[Pointaugmenting: Cross-modal augmentation for 3d object detection](https://openaccess.thecvf.com/content/CVPR2021/papers/Wang_PointAugmenting_Cross-Modal_Augmentation_for_3D_Object_Detection_CVPR_2021_paper.pdf)." *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition*. 2021.
-    - Zhang, Wenwei, Zhe Wang, and Chen Change Loy. "[Exploring data augmentation for multi-modality 3D object detection](https://arxiv.org/pdf/2012.12741.pdf)." *arXiv preprint arXiv:2012.12741* (2020).
-  - many works utilise augmentation to increase the point cloud density to handle the **sparsity issue**
-- **Geometric** augmentation
-  - can be applied locally to a single target
-  - or globally to the entire scene
-  ![](https://i.imgur.com/Z2znScp.png)
-- **Copy–paste** augmentation
-  - copy the detected object from other frames and pastes it into the same location in the current frame
-- **NOTE**. a limitation of these two methods is that they do not change the distribution of detections, while radar points are actually randomly distributed over the object in different frames -->
-
-
-### **Synthetic Data**
+#### **Synthetic Data**
 - Synthetic datasets are widely used in Computer Vision and LiDAR perception 
 - Networks trained with synthetic data can actually generalize well in the real-world
   - Johnson-Roberson, Matthew, et al. "[Driving in the matrix: Can virtual worlds replace human-generated annotations for real world tasks?](https://arxiv.org/pdf/1610.01983.pdf)." *arXiv preprint arXiv:1610.01983* (2016).
@@ -564,7 +440,7 @@
     - C. Ditzel and K. Dietmayer, "[GenRadar: Self-Supervised Probabilistic Camera Synthesis Based on Radar Frequencies](https://ieeexplore.ieee.org/document/9570339)," in *IEEE Access*, vol. 9, pp. 148994-149042, 2021.
 
 
-### **Radar Depth and Velocity Estimation**
+#### **Radar Depth and Velocity Estimation**
 - Radar can measure range and Doppler velocity, but both of them **cannot be directly used** for downstream tasks
 - The range measurements are sparse and therefore difficult to associate with their visual correspondences
 - The Doppler velocity is measured in the radial axis, therefore, cannot be directly used for tracking
@@ -573,7 +449,7 @@
 
 
 
-### **Radar Object Detection**
+#### **Radar Object Detection**
 - Due to low resolution, classical radar detection algorithm has limited classification capability
 - At hardware level, next-generation imaging radars can output high-resolution point clouds
 - At algorithm level, NN show their potentials to learn better features from the dataset
@@ -592,7 +468,7 @@
 ![](https://i.imgur.com/O7Nlu0Y.png)
 
 
-### **Classical Detection Pipeline**
+#### **Classical Detection Pipeline**
 - the conventional **radar detection pipeline** consists of **4** steps:
 - **CFAR detection** 
   - a CFAR detector is applied to detect peaks in the RD heat map as a list of targets
@@ -607,7 +483,7 @@
 - Improvements can be made upon each of these **4** steps
 
 
-### **CFAR**
+#### **CFAR**
 - CFAR is usually executed in an on-chip DSP, so the choice of method is restricted by hardware support
 - A **threshold** is set to achieve a constant false alarm rate for **Rayleigh-distributed noise**
 - The next-generation high resolution radar chips support OS-CFAR
@@ -626,7 +502,7 @@
       - C. -H. Lin, Y. -C. Lin, Y. Bai, W. -H. Chung, T. -S. Lee and H. Huttunen, "[DL-CFAR: A Novel CFAR Target Detection Method Based on Deep Learning](https://ieeexplore.ieee.org/document/8891420)," *2019 IEEE 90th Vehicular Technology Conference (VTC2019-Fall)*, 2019, pp. 1-6.
 
 
-### **Clustering**
+#### **Clustering**
 - Clustering is the most important stage in the radar detection pipeline, especially for the next-generation high-resolution radar
   - most important? what change?
 - **DBSCAN** is favoured for several reasons
@@ -660,7 +536,7 @@
     - N. Scheiner, N. Appenrodt, J. Dickmann and B. Sick, "[A Multi-Stage Clustering Framework for Automotive Radar Data](https://ieeexplore.ieee.org/abstract/document/8916873)," *2019 IEEE Intelligent Transportation Systems Conference (ITSC)*, 2019, pp. 2060-2067.
 
 
-### **Classification**
+#### **Classification**
 - Radar target classification
 - For moving objects
   - **micro-Doppler velocity** of moving components are useful features for classification
@@ -684,14 +560,14 @@
 
 
 
-### **Point Cloud Dector**
+#### **Point Cloud Dector**
 - End-to-end object detectors are expected to replace the conventional pipelines based on hand-crafted features
 - Most radar detection methods only apply to moving targets, since static objects are difficult to classify due to low angular resolution
 - **To be continued...**
 
 
 
-### **Pre-CFAR Detector**
+#### **Pre-CFAR Detector**
 - Pre-CFAR data encode rich information of both targets and backgrounds, but this is hard to interpret by humans
   - DL-based CFAR estimation
     - Y. Cheng, J. Su, H. Chen and Y. Liu, "[A New Automotive Radar 4D Point Clouds Detector by Using Deep Learning](https://ieeexplore.ieee.org/document/9413682)," *ICASSP 2021 - 2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)*, 2021, pp. 8398-8402.
@@ -703,7 +579,7 @@
 
 
 
-<!-- ### **Sensor Fusion for Detection**
+<!-- #### **Sensor Fusion for Detection**
 - Different sensors observe and represent an object with different features
 - Sensor fusion can be considered as the mapping of different modalities into a common **Latent Space** where different features of the same object can be associated together
 - Conventional taxonomy classify fusion architectures into 3 types, which is ambiguous
@@ -721,7 +597,7 @@
 ![](https://i.imgur.com/dzZt6yC.png)
 
 
-### **Input Fusion**
+#### **Input Fusion**
 - Input fusion requires a lightweight preprocessing to explicitly handle radar position imprecision
 - Input fusion is applied to the **radar point cloud** with **3** steps: 
   - First, **project** radar points into a pseudo-image with the range, velocity, and RCS as channels
@@ -744,7 +620,7 @@
   - R. Yadav, A. Vierling and K. Berns, "[Radar + RGB Fusion For Robust Object Detection In Autonomous Vehicle](https://ieeexplore.ieee.org/abstract/document/9191046)," *2020 IEEE International Conference on Image Processing (ICIP)*, 2020, pp. 1986-1990.
 
 
-### **ROI Fusion**
+#### **ROI Fusion**
 - ROI fusion is adapted from the classical "Fast R-CNN" two-stage detection framework
   - Girshick, Ross. "[Fast r-cnn](https://openaccess.thecvf.com/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf)." *In Proceedings of the IEEE International Conference on Computer Vision (ICCV)*, Santiago, Chile, 7–13 December 2015; pp. 1440–1448.
 - Regions Of Interest (ROIs) can be considered as a set of object candidates without category information
@@ -784,7 +660,7 @@
     - Y. Kim, J. W. Choi and D. Kum, "[GRIF Net: Gated Region of Interest Fusion Network for Robust 3D Object Detection from Radar Point Cloud and Monocular Image](https://ieeexplore.ieee.org/document/9341177)," *2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*, 2020, pp. 10857-10864.
 
 
-### **Feature Map Fusion**
+#### **Feature Map Fusion**
 - Feature map fusion provides the network with greater flexibility to combine radar and visual semantics, but requires specific training techniques for effective learning
 - Utilises 2 encoders to map radar and images into the same latent space with high-level semantics
 - The detection frameworks are flexible
@@ -803,7 +679,7 @@
 - Training techniques are needed to force the network to learn from radar input
 
 
-### **Decision Fusion**
+#### **Decision Fusion**
 - Decision fusion **takes advantage of modal redundancy** and is therefore popular in real-world applications
   - **Location** information can be robustly fused in a track-to-track architecture or with the help of network semantics
   - **Category** information can be fused with Bayesian inference or evidence theory
@@ -826,7 +702,7 @@
 
 
 
-### **Challenges**
+#### **Challenges**
 - Although deep radar perception shows good performance on datasets, there are few studies investigating the generalisation of these methods
 - In fact, some challenging situations are overlooked, but may prohibit the use of these methods in real-world scenarios
 - Summarise **3 challenges** for deep radar perception
@@ -839,7 +715,7 @@
 
 
 
-<!-- ### **Future Research Directions**
+<!-- #### **Future Research Directions**
 - Many research efforts have focused on developing models for detection tasks
 - There are also some unexplored research topics or fundamental questions to be addressed
   - urgent need for **High-Quality Datasets**
@@ -999,7 +875,7 @@
 
 
 ### 09/15
-- 下次 meeting 是 9/21 下週三下午 3 點
+- 下次 meeting 是 9/21 下週三下午 4 點
 - 超短期目標
   - 確認有哪些公開資料集可以取得，最好有附論文或範例程式
     - 簡介資料集的樣子、型態
@@ -1015,9 +891,10 @@
     - 要用的話，要怎麼用? 要引用誰的論文才不失學術倫理?
 - 跟鍾老師討論多個質點的雷達模擬假設合理性
   - 結論是鍾老師覺得這樣假設沒問題，只是還有很多細節需要釐清
-  - 假設人的雷達回波是 3 個理想反射點；車的回波是 10 個理想反射點，這裡是先武斷假設點數
+  - 假設成人的雷達回波是由 3 個理想反射點去模擬；汽車的回波是由 10 個理想反射點去模擬，這裡是先武斷假設點數
     - 最好能找到文獻支撐理想反射點點數的假設
-  - 得考慮雷達的近場、遠場問題
+    - 但如何找? 可否以 RCS 去近似?
+  - 得考慮雷達跟物體距離的近場、遠場問題
     - 近場意思是，多個理想反射點的物理特性可以分開考慮
     - 遠場的話，因為雷達跟受測物距離很遠，儘管有多個反射點，但回波看起來就是一個點的反射
     - 多近是近? 多遠是遠?
@@ -1027,9 +904,243 @@
     - 而10~20倍的範圍則是某種模糊空間
 
 
+### 09/17
+- 通訊理論
+  - 複習到 2.1-1 Bandpass and Lowpass Signas, p.21 
+  - 預習到 2.2 結束, p.40 然後 2.3 Random Variables 能看多少算多少
+
+
+
+### 09/19
+- Radar Dataset
+  - A. Ouaknine, A. Newson, J. Rebut, F. Tupin and P. Pérez, "[CARRADA Dataset: Camera and Automotive Radar with Range- Angle- Doppler Annotations](https://ieeexplore.ieee.org/document/9413181)," *2020 25th International Conference on Pattern Recognition (ICPR)*, 2021, pp. 5068-5075.
+    - paper with code has [3](https://paperswithcode.com/paper/carrada-dataset-camera-and-automotive-radar) implementations all in PyTorch
+    - github repo [carrada_dataset](https://github.com/valeoai/carrada_dataset)
+  - D. Gusland, J. M. Christiansen, B. Torvik, F. Fioranelli, S. Z. Gurbuz and M. Ritchie, "[Open Radar Initiative: Large Scale Dataset for Benchmarking of micro-Doppler Recognition Algorithms](https://ieeexplore.ieee.org/document/9455239)," *2021 IEEE Radar Conference (RadarConf21)*, 2021, pp. 1-6.
+    - github repo [open_radar_datasets](https://github.com/openradarinitiative/open_radar_datasets)
+    - assisted living dataset [CI4R-Human-Activity-Recognition-datasets](https://github.com/ci4r/CI4R-Activity-Recognition-datasets)
+
+
+
+### 09/22
+- Original goals
+  - looking for ready-to-use and easy-to-use public datasets
+  - discuss the reasonableness of our provious thoughts on radar simulation settings
+- Radar Dataset
+  - A. Ouaknine, A. Newson, J. Rebut, F. Tupin and P. Pérez, "[CARRADA Dataset: Camera and Automotive Radar with Range- Angle- Doppler Annotations](https://ieeexplore.ieee.org/document/9413181)," *2020 25th International Conference on Pattern Recognition (ICPR)*, 2021, pp. 5068-5075.
+    - paper with code has [3](https://paperswithcode.com/paper/carrada-dataset-camera-and-automotive-radar) related implementations all in PyTorch
+    - github repo [carrada_dataset](https://github.com/valeoai/carrada_dataset)
+    - the dataset is available on Arthur Ouaknine's personal web page using this [link](https://arthurouaknine.github.io/codeanddata/carrada)
+  - D. Gusland, J. M. Christiansen, B. Torvik, F. Fioranelli, S. Z. Gurbuz and M. Ritchie, "[Open Radar Initiative: Large Scale Dataset for Benchmarking of micro-Doppler Recognition Algorithms](https://ieeexplore.ieee.org/document/9455239)," *2021 IEEE Radar Conference (RadarConf21)*, 2021, pp. 1-6.
+    - github repo [open_radar_datasets](https://github.com/openradarinitiative/open_radar_datasets)
+    - assisted living dataset [CI4R-Human-Activity-Recognition-datasets](https://github.com/ci4r/CI4R-Activity-Recognition-datasets)
+
+
+#### **CARRADA Dataset**
+- Carrada.tar.gz (22.9 GB)
+  - Carrada.tar (90 GB)
+  ![](https://i.imgur.com/5Uvs38T.png)
+  - e.g. inside "2020-02-28-13-15-36" folder
+  ![](https://i.imgur.com/1W822Nx.png)
+  - synchronized camera and radar views with generated annotations
+    - materials for the semi-automatic pipeline
+- Carrada_RAD.tar.gz (198 GB)
+  - RAD tensor per sequence only, with no annotations
+- Annotations and Classes
+  - bounding boxes
+    ![](https://i.imgur.com/PeCCble.png)
+    - possibly COCO format, but does not looks the same
+        ```jsonld!
+        annotation {
+        "id" : int,
+        "image_id": int,
+        "category_id": int,
+        "segmentation": RLE or [polygon],
+        "area": float,
+        "bbox": [x,y,width,height],
+        "iscrowd": 0 or 1,
+        }
+        categories[{
+        "id": int,
+        "name": str,
+        "supercategory": str,
+        }]
+        ```
+      ![](https://i.imgur.com/08BaqAi.png)
+  - sparse points 
+  - dense masks
+  - above **3** annotations are provided for range-Doppler and range-angle representations
+  - each object has a unique class identier, being categorized as a **pedestrian**, a **car** or a **cyclist**
+- Images and Radar data 
+  - image resolution is 1238 x 1028 pixels 
+  - 2D RD map with size of 256 x 64 
+  - 2D RA map with size of 256 x 256
+  - sensors are calibrated to have the same **Cartesian coordinate** system
+<img src="https://i.imgur.com/Zh6cupd.png" width=60% height=60%>
+![](https://i.imgur.com/4COIFjE.png)
+- Possible tasks
+  - object detection 
+  - semantic segmentation
+  - tracking in raw radar signals 
+  - sensor fusion in temporal data
+- The dataset has been recorded in **Canada** on a **test track** to reduce environmental noise
+  - the acquisition setup are with a **FMCW radar** and a **camera** mounted on a **stationary** car
+  - the radar uses the **MIMO system** conguration with **2 Tx** and **4 Rx** producing a total of 8 virtual antennas
+  - the camera and the radar data are synchronized to have the **same frame rate** in the dataset
+- The parameters and specications of the sensor
+<img src="https://i.imgur.com/41ASmge.png" width=70% height=70%>
+<!--   - **Performances** are evaluated for each radar representation for each category
+    - Intersection over Union (IoU)
+    - Pixel Accuracy (PA) 
+    - Pixel Recall (PR) 
+    - metrics by category are aggregated using arithmetic and harmonic means -->
+
+#### **Outdoor Moving Object Dataset**
+- The Dataset can be downloaded from [google drive](https://drive.google.com/uc?id=1CJyTqtCM4kOSQt2X7n2NgWCVEqou8RCB)
+  - this dataset is in a "ground surveillance" setting
+  - data has been collected with a **stationary radar** and **targets moving in the front** of the radar
+- Dataset content
+  - the dataset is a python dictionary that stores as a ".npy" file
+    - similar to a pickle file, which is pretty dangerous to unwrap
+  - the ".npy" file contains a dictionary of signatures, each signature corresponds to a full radar-track and contains:
+    | Field name | Explanation |
+    | ---------- | ----------- |
+    | signature  |  Numpy array of the doppler spectra for that track|
+    | ts         |  Timestamp for each spectra|
+    | range      |  Measured range for the detection|
+    | azimuth    |  Measured azimuth for the detectin|
+    | velocity   |  Measured radial velocity|
+    | snr_db     |  Estimated SNR in dB, estimated from a 1D CFAR|
+    | x          |  Kalman-filtered x-position|
+    | y          |  Kalman-filtered x-position|
+    | z          |  Kalman-filtered x-position|
+    | class_name |  Class name string|
+    | radar_parameters |  Dict with the radar parameters|
+  - the radar parameters dict contain sensor and waveform-specific parameters
+    | Field name | Explanation |
+    | ---------- | ----------- |
+    | num_range_bins |  Number of range bins|
+    | num_pulses |  Number of pulses in each frame|
+    | num_antenna_elements |  Number of receiver elements sampled|
+    | fc |  Center frequency|
+    | bw |  Sampled Bandwidth|
+    | prf |  PRF|
+- Sample code for Outdoor Moving Object Dataset
+```python
+# first load the dataset as a .npy file from google drive 
+# https://drive.google.com/uc?id=1CJyTqtCM4kOSQt2X7n2NgWCVEqou8RCB
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Print the classes in the dataset
+filename = "D:\Datasets\OpenRadar\moving_target_dataset.npy"
+signatures = np.load(filename, allow_pickle=True)
+
+class_names = []
+for signature in signatures:
+    if not any(signature['class_name'] in s for s in class_names):
+        class_names.append(signature['class_name'])
+
+print(class_names) # ['vehicle', 'person', 'bicycle', 'uav']
+
+# View the dataset
+is_shown = {}
+for class_name in class_names:
+    is_shown[class_name] = False
+
+# Shows some samples of the dataset
+for signature in signatures:
+    if len(signature['snr_db']) <= 500: continue
+    if signature['class_name']!="uav" or len(signature['snr_db']) <= 100: continue
+    if not is_shown[signature['class_name']]:
+        is_shown[signature['class_name']] = True
+        arr = signature['signature']
+        arr = 20 * np.log10(np.abs(arr)).transpose()
+        prf = signature['radar_parameters']['prf']
+
+        def plot_some_samples():
+            plt.imshow(arr, cmap='jet', aspect='auto', 
+                       vmax=np.max(arr) - 20, 
+                       vmin=np.max(arr) - 70, 
+                       extent=[0, arr.shape[1], -int(prf/2), int(prf / 2)])
+            plt.title(signature['class_name'])
+            plt.autoscale()
+            plt.xlabel('Time (seconds) in samples')
+            plt.ylabel('Doppler frequency shift (Hz)')
+            plt.show()
+
+        # plot_some_samples()
+```
+![](https://i.imgur.com/Jh0ILsr.png)
+![](https://i.imgur.com/avohsBv.png)
+```python
+# The files in the dataset are of long tracks of each subject, 
+# to use them for ML/DL tests, it is important that we split 
+# the data on the track-basis an not only spectra. We therefore 
+# perform the spliting at this point.
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+
+all_indices = list(range(len(signatures)))
+train_indices, test_indices = train_test_split(all_indices, 
+                                               test_size=0.2, 
+                                               random_state=42)
+
+le = preprocessing.LabelEncoder()
+le.fit_transform(class_names)
+
+# for index in train_indices:
+train_signatures = [signatures[i] for i in train_indices]
+test_signatures = [signatures[i] for i in test_indices]
+
+# Count the Number of samples:
+n_samples_train = 0
+n_samples_test = 0
+for signature in train_signatures:
+    n_samples_train += len(signature['ts'])
+
+for signature in test_signatures:
+    n_samples_test += len(signature['ts'])
+
+print(f"Train dataset size: {n_samples_train}") 
+print(f"Test dataset size:  {n_samples_test}")  
+# Train dataset size: 151455
+# Test dataset size:  35937
+
+# These two datasets now contain everything we need to do classification 
+# research. We simply have to slice the spectrograms into convenient sizes 
+# and start the challenge. Each spectra contains 1008 Doppler bins and 
+# concatinating 10 spectra corresponds to half a second observation time.
+```
+
+
+
+### 09/27
+- 在 IEEE 有 [8](https://ieeexplore.ieee.org/document/9413181/citations?tabFilter=papers#citations) 篇文章引用，在 google scholar 可以找到 [43](https://scholar.google.com.tw/scholar?cites=4617103630695360689&as_sdt=2005&sciodt=0,5&hl=zh-TW) 篇。
+  - R. Zheng, S. Sun, D. Scharff and T. Wu, "[Spectranet: A High Resolution Imaging Radar Deep Neural Network for Autonomous Vehicles](https://ieeexplore.ieee.org/document/9827798)," *2022 IEEE 12th Sensor Array and Multichannel Signal Processing Workshop (SAM)*, 2022, pp. 301-305.
+    - proposed a novel **signal processing pipeline** to address the max ambiguous velocity reduction issue introduced by staggered TDM scheme of high resolution imaging radar system
+    - generate high resolution radar RA spectra without information loss
+  - C. Grimm, T. Fei, E. Warsitz, R. Farhoud, T. Breddermann and R. Haeb-Umbach, "[Warping of Radar Data Into Camera Image for Cross-Modal Supervision in Automotive Applications](https://ieeexplore.ieee.org/document/9797876)," in *IEEE Transactions on Vehicular Technology*, vol. 71, no. 9, pp. 9435-9449, Sept. 2022.
+
+
+### 10/03
+- 跟鍾老師討論訓練資料的問題
+- 家裡主機的 ```Anaconda``` 環境有問題!
+  - 所有虛擬環境(不知為何)竟然是切割在 ```.conda``` 的 ```envs``` 底下，而不是預設 ```D:\ProgramData\Anaconda3\envs``` 的路徑
+  - 現在遇到及未來潛在問題是已安裝的 ```package``` 會讀不到
+  - 安裝的 ```package``` 會被分成裝在 ```base``` 跟裝在 ```env_name``` (比如 ```ipy3.6``` 等等) 底下，然後能不能正常讀取就看運氣
+  - 目前是發現若用 ```ipykernel``` 會爆炸
+
+
+
+### 10/04
+- 必須要認真解決讀資料的問題!
+
+
+
 
 ### 值得關注的作者
-偶爾看一下他們有沒有出什麼新東西可以跟XD
+- 偶爾看一下他們有沒有出什麼新東西可以跟XD
 - PhD students
   - [Chia-Hung Lin](https://ieeexplore.ieee.org/author/37087085396)
   - [Yu-Chein Lin](https://ieeexplore.ieee.org/author/37086483408)
