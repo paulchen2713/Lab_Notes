@@ -223,7 +223,7 @@
 - 今天的書報節奏明快有趣，整體氛圍非常 chill 非常不同於一般演講或學術報告的感覺，跟學術報告類的演講相比很喜歡這類的經驗分享。從學長工作經歷分享的字裡行間中推敲，覺得學長非常努力、盡責、聰明、懂得享受工作，能在工作跟生活找到平衡且能在工作中找到成就感，並實踐自我價值觀，就好像實踐自己心中的正義。努力跟聰明可以從職務內容的轉變中發現，從最開始的通訊韌體到後來慢慢跳槽到基頻晶片、記憶體控制晶片演算法，已經算是公司的核心人物，只是遭逢高層內鬥 (Internal conflict) 跟部門裁撤 (Division closed) 才中途換到產線支援 (Production line support) 做天線晶片頻率的校正 (Calibration)，但從中也學到很多有趣的實地經驗。
 - 關於專利申請與審查的部分，覺得最有價值的資訊是 “未來申請與審查可能會變成對審制” 也就是智財局專利審查部門未來可能會像是除民事、刑事、行政外的第四個法庭。作為理工科學生，我們應該認真了解一下何謂法律上的專利、了解專利法的基礎，也許對未來職涯會很有幫助。第一個直覺問題是，何謂發明專利? (當然，對智財法稍有瞭解會知道除發明專利還有新型專利跟設計專利等等) 專利法第21條，定義何謂法律上認定的發明，“發明，指利用自然法則的技術思想的創作”。但想必大部分人對專利的既定印象是專利訴訟，但設計專利保護的初衷是希望能促進產業發展，如專利法第1條所述–“為鼓勵、保護、利用發明與創作，以促進產業發展，特制定本法”。
 - 直覺上會有個疑問是 “必須是開創性發明 (Pioneer Invention) 才能申請專利保護嗎?” 從問題問法可知事實不然，改良性發明 (Modified Invention) 也可以，這裡學長是舉 “演唱視覺特效系統 (Singing visual effect system)” 為例，像此系統一開始的發明是工作人員透過聲音頻率控制，但後來也演變出透過麥克風仰角、跟麥克風的接觸面積、或直接設一個開關去控制。
-- 專利申請的書面流程大致需要準備 6 份文件，分別是1.申請書，2.摘要，3.說明書，4.發明內容，如要定義欲解決什麼問題、定義解決問題的手段及實施方式等等，5.申請專利範圍 (Claims) 即闡明希望法律保護的部分，必須事前講清楚要保護什麼，法律才能賦予保障，最後是6.簡單圖示說明。這邊學長舉了聲控骰子 (voice controlled dice) 為例，說明書面文件的書寫有很多需要注意的地方，申請方會期望盡量把專利範圍擴大以避免其他人能輕易繞開，比如聲控骰子的主體不應該直接寫骰子，應該寫 “一種隨機數產生裝置”。
+- 專利申請的書面流程大致需要準備 6 份文件，分別是 1. 申請書，2. 摘要，3. 說明書，4. 發明內容，如要定義欲解決什麼問題、定義解決問題的手段及實施方式等等，5. 申請專利範圍 (Claims) 即闡明希望法律保護的部分，必須事前講清楚要保護什麼，法律才能賦予保障，最後是 6. 簡單圖示說明。這邊學長舉了聲控骰子 (voice controlled dice) 為例，說明書面文件的書寫有很多需要注意的地方，申請方會期望盡量把專利範圍擴大以避免其他人能輕易繞開，比如聲控骰子的主體不應該直接寫骰子，應該寫 “一種隨機數產生裝置”。
 - 專利審查主要會看 4 個面向，分別是明確性 (Clarity)、新穎性 (Novelty)、進步性 (Inventive Steps) 及產業利用性 (Industrial Applicability)，其中明確性最為重要，比如量子音樂能 (Quantum music energy) 的申請，說聽此音樂可以治癌、改善健康狀況等等，但內容太玄學無法明確解釋清楚，法律當然不予保障；新穎性的話，基本上只要技術手段有點不一樣、沒有完全相同就可以符合新穎性，進步性則非常複雜、很難定義；產業利用性基本上都會符合。
 - 最後總結說，大家要對自己有信心 (Have confidence in ourselves)、培養一些嗜好 (Take up a hobby)、並勇敢嘗試 (Try anything new)，且要謹記時間是把無情的殺豬刀 (Remind that the wear and tear of time)，希望還能有機會再碰到有趣的畢業學長姐。
  
@@ -300,7 +300,7 @@
   - bio compatibility. Integration with living system is possible
   - energy efficient. Diffusion is 自發性的
 - 分子通訊難點
-  - stochasticity. Intrinsically Radom propagation of molecules
+  - stochasticity. Intrinsically Radom propagation of molecules (Brownian motion)
   - delay. 因為是提供擴散作用傳播，不像電磁波快又可控
 - 分子通訊定義
   - 載波為物質分子，且傳送端有意傳遞訊息
@@ -349,7 +349,7 @@
 - Divergence as a parent quantity
   - KL divergence 
     - 很像是距離的意義，但不用滿足三角不等式，透過簡單的測度論去架構
-- Information Ttheory in Molecular Communication
+- Information Theory in Molecular Communication
 - Questions. 
   - what's the channel if a MC channel? 
 - 但這個問題太大，得限縮討論框架才能去探討，有 2 種通道有人在研究
@@ -384,7 +384,142 @@
 
 
 #### **Feedbacks**
+- 今天書報討論的主題為 Channel Capacity of First Arrival Position Channel in Diffusive Molecular Communication，是分子通訊領域的新興理論研究題目，講者是任職於鴻海研究院量子計算研究所的李彥奇博士 (Dr. Yen-Chi Lee)，鴻海研究院好像是近幾年創立的企業研究機構，給人很像是以前的 Bell Labs 的感覺。
+- 覺得講者的學歷非常厲害，分別是台大電機學士 (B.S. degree in NTU EE), 台大數研所 (M.S. degree in NTU Math), 台大電信所 (Ph.D. degree in NTU GICE)。李博士的研究專長有(量子)消息理論 (classical and quantum information theory), 數學物理 (mathematical physic), 及分子通訊理論 (molecular communication), 都是光聽起來就覺得超難的主題。
+- 這次演講有兩個重點摘要，一是解釋什麼是分子通訊? 為此得先對什麼是 Diffusive Molecular Communication (DMC) 跟 First Arrival Position (FAP) 有個基本的概念跟認知；二是他們近期研究成果的主要貢獻為何? 首先是構建 FAP Channel 的通道模型，包含推導出 FAP density function 也就是 FAP channel 的 impulse response 表示式；接著是討論此通道的特性，特別是 channel capacity 才是我們最在意的部分。
+- 分子通訊的發想源於 Nanonetworks 的概念，而 Nanonetworks 其實早已存在於生物系統 (biological system) 中，所以由此衍伸出兩個基本問題: “Can we understand and control the signaling in small system?” “Are synthetic nanonetworks possible?” 分子通訊、甚至量子通訊就在嘗試解決這些疑問。
+  - 跟傳統通訊相比，分子通訊有四個優勢，一是可行性 (feasibility)，實現較簡單、二是大小適當 (appropriate size)，大小可以跟奈米機械 (nanomachines) 兼容、三是生物相容性 (bio compati-bility)，可能可以跟活體生物相容，比起在生物體內裝一個會被排斥的機械裝置、在生物體內打電磁波，明顯是分子通訊比較好、最後第四個優勢是節能 (energy efficient)，因為分子通訊是透過擴散作用 (Diffusion) 傳播資訊的，而擴散是自發性的，我們應該不需要額外供能。
+  - 隨之而來的是分子通訊的難點，一是隨機性 (stochasticity) 不好掌握，像布朗運動 (Brownian motion) 就是很直觀的例子、二是延遲 (delay) 的問題，畢竟是透過擴散作用傳播，不像電磁波快又可控，二者加起來馬上會聯想到，這樣怎麼解決通訊中很常見且重要的同步 (synchronization) 問題? 不過同步是比較後面的問題，現在李博是做得是更基礎的研究，這裡能簡單定義 “何謂分子通訊的模型?” 即 “載波為物質分子，且傳送端有意傳遞訊息”。
+- 接著是主要貢獻的前半部分，提出 FAP channel 的新 CIR 公式 (New Formula of Channel Impulse Response for FAP Channel)，這裡得先稍微解釋並區分微觀跟巨觀的擴散理論 (Microscopic and Macroscopic Diffusion Theory)。
+  - 微觀的尺度是到微米，非探討量子效應，早期是透過 random walk 去模擬分子在連續時間下有連續值但不是處處可微(不可微)的狀態(如布朗運動)，後來有發展出 Ito diffusion process (隨機微積分) 的理論去更好的探討這裡的數學問題。
+  - 巨觀是把電磁波的波動方程換成分子的擴散方程式 (Diffusion Equations)，從巨觀擴散理論可以導出非時變分子通訊系統下的CIR。
+  - 接著就能進到再難一點的設定，FAP channel 顧名思義是把資訊編碼在到達的位置，接收端這裡考慮簡單一點的狀況，分別是 
+    - Large planar Rx 
+    - Fully absorbing Rx
+  - 想像接收端大分子有一個切面可以完全吸收接觸到的小分子，攜帶訊息小分子不會有慣性、反彈而會被完全吸收，若此理論基礎建立起來可以再推廣到整個大分子球體都能接收、推廣到若有慣性或反彈等影響，但光是考慮分子打到分子板的時間跟位置的函數的建模就已經非常難了。
+  - 李博士提出的新方法分成三個步驟，
+    - 一是移除diffusion equation的時間項，只考慮量子力學線性項，跟嘗試找出generator，像是某種 moment generating function，其實就是研究 semi-group；
+    - 二是用representation formula表示，其實就是變成要解 green function，
+    - 最後第三步是用 Dynkin's formula 求解，新方法相較直接去解擴散方程的方法複雜度更低，
+  - 討論至此已經解決分子通道的 Channel response 建模，接下去是更難的 channel capacity 推導。
+- 一般性的分子通訊 channel capacity 定義，這個問題太大，得限縮討論框架才能去探討，現在有 2 種通道有人在研究，分別是 
+  - FAT (First Arrival Time) channel
+  - FAP (First Arrival Position) channel
+  - 前者資訊編碼 (embedded) 在 releasing time 而後者則是 releasing position。
+- 這裡先舉個 FAT channel 例子，像 Additive Inverse Gaussian Noise (AIGN) Channel，可加性 (additive) 可以被證明，其實很早以前就知道 inverse Gaussian Noise 存在，但還要再證明其可表示為一個通道，目前closed form solution 還沒解出來，但上下界已經被找出來，可以用一階 moment 去 bounded 出來。
+- 接著是 FAP channel，李博士是先考慮 low velocity 的解 (Zero Drift Limit of FAP Channel)，一樣是用 maximum entropy 跟利用 l2 constraint 去 bound，後來發現不可行，因為導出來的 distribution 跟 Cauchy distribution 是同構，此分布的一階跟二階 moment 都不存在，在 l1, l2 space 不存在，再後來又發現利用 alpha stable space 可以表示。
+- 這裡有個小疑問是 “如何知道研究方向跟初步成果是正確的?” 這裡是比較 Gaussian, 2D FAP channel, 3D FAP channel 發現 channel capacity 的數學結構相似，係數項有物理意義，假設是 n-dimensional hyperspace，則係數會是 (n – 1)，可以理解成如果從 3 維通道傳送，撞到 2 維分子板接收，自然會少 1 個自由度，所以會反映在係數項減1。
+- 最後總結此次學術報告，李博士在分子通道建模中找到 zero drift FAP channel 的解析解，但 general solution 還沒找到，所以接下來的開放問題是去討論 2D, 3D FAP channel 在 non-zero drift 情況下的解，這裡有點忘記為什麼是只需要探討 2, 3 維的情況了。
+- 今天的演講其實幾乎都聽不懂、一知半解，對這類偏向學術報告的書報演講比較沒太大興趣，除非是做相關領域的，不然厲害的學者來這邊感覺也是浪費他們時間，因為台下的同學們可能聽不太懂更沒什麼共鳴，只希望老師們覺得有收穫就好，期待下週的演講。
+
+
+
+
+## **10/14**
+#### **Topic**
+- Overview of CPU Architecture Design and Reconfigurable Instruction Cell Array, RICA 
+
+#### **Date & Time** 
+- 2022 / 10 / 14 (Fri) 14:20~16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- Qualcomm, Taiwan
+  - Tai-Hua Lu
+  - Obe Wu
+  - Aaron Du
+
+#### **Abstract**
+- Introduce the work content of CPU team in Taiwan, which is divided into two parts: 
+  - CPU architecture and Performance team 
+  - CPU Design Implementation team 
+- CPU architecture and team focuses on exploring CPU and system architecture to achieve competitive CPU performance. 
+- CPU design implementation team focuses on CPU subsystem realization. In the seminar, we will introduce how to analyze and realize RICA
+  - The Reconfigurable Instruction Cell Array, RICA, with Machine Learning Accelerator and SoC implementation are our important function and task on the multi-media (MM?) Taiwan R&D team. 
+  - With the rapid growth of the technical requirement of computer vision and image processing, RICA provides a kind of programmable solution on C-language without the turn-around time of IC manufacturing. 
+- This speech will introduce some applications on RICA and the reasons why we should use RICA. As a digital design team in Taiwan, we also share some parts on implementation to realize this RICA-SoC
+
+
+#### **Short Bio**
+- Tai-Hua Lu 
+  - NCKU, ITRI, MTK, SiFive, Qualcomm
+- Obe Wu 
+  - NCTU, TSMC, MTK, Qualcomm
+- Aaron Du 
+  - NTHU, MTK, Spreadtrum, Vicore-Logic, Qualcomm
+
+
+#### **Notes**
+- A
+
+
+#### **Feedbacks**
 - A
 
 
 
+
+## **10/21**
+#### **Topic**
+- Ultra-low Power AI at the Edge: Making Always-on Sensing a Reality
+
+#### **Date & Time**
+- 2022 / 10 / 21 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 陳有棟 副總  奇景光電
+
+#### **Abstract**
+- 奇景光電為一個專注於影像顯示處理技術之IC設計公司。本公司係全球顯示器驅動IC與時序控制IC的領先廠商，產品應用於電視、筆記型、桌上型、平板電腦、手機、數位相機、汽車導航以及其他多種消費性電子產品。講者將針對 Ultra-low power AI 之運用與未來發展趨勢做介紹，期與同學們產生共鳴。
+
+#### **Short Bio**
+- 於2013年加入奇景光電，專長為數位/類比混合信號處理電路及系統設計，超低功耗電路及系統設計，目前負責設計工程中心，主要負責超低功耗邊緣運算晶片及系統開發。
+- Eduacation
+  - 成大電機學碩
+- Experience
+  - 凌陽科科技 處長
+  - 我想科技 (鈺創科技) 處長
+  - 聯陽半導體 資深工程師
+  - 奇景光電 副總
+
+
+#### **Notes**
+- A
+
+
+#### **Feedbacks**
+- A
+
+
+
+## **10/28**
+#### **Topic**
+- A
+
+#### **Date & Time**
+- 2022 / 10 / 28 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- A
+
+#### **Abstract**
+- A
+
+#### **Short Bio**
+- A
+
+
+#### **Notes**
+- A
+
+
+#### **Feedbacks**
+- A
