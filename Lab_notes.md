@@ -1138,6 +1138,43 @@ print(f"Test dataset size:  {n_samples_test}")
 
 
 
+### 10/19
+- All bugs remain unfixed 先不管 read_carrada smaple code 的問題
+- 當前最重要的目標是
+  - 可以用 CARRADA Dataset 的資料讓 YOLOv3 跑起來
+  - 至少確認可以解決 RD Map 的目標偵測問題，因為 RA Map 的部分超難
+- 可以找另一個可以讀 COCO format / JSON string 的 YOLOv3 把東西跑起來
+  - 光是要把另一個 YOLOv3 跑起來並確認基本的正確性就很煩
+  - 無法確定可以讀 json string 的 annotation，畢竟 CARRADA Dataset 的格式跟標準的(? COCO format 也不太一樣
+- 也可以把 annotation 從 COCO format 整理成 YOLO foramt，醬就能餵進之前確認過大致可行的 YOLOv3
+  - 但記得還有很多 unfixed bugs! 而且在家裡跟在學校電腦的執行結果不一樣!!
+  - 至少知道用 CPU 跑的跟 GPU 跑的結果不一樣，是 albumentation 的預期結果不一樣
+  - 理論上原電腦用 CPU 跑的才是最正確的，但那台現在已經半報廢狀態
+- 對法二目前有 3 個想法可以試試看/待確認
+  - 先從 json file 把有 bbox annotation 的字串原封不動 parse 出來，重新寫成 .txt file 的 YOLO format
+  - 把 parse 出來的 annotation 重新 rescale 成 256-by-256 的大小，也就是把 x 軸 (Doppler 軸) 拉長 / 放大 4 倍，好方便直接餵進之前的 YOLOv3，因為不確定餵長方形 (64-by-256) 的 image / matrix 他的 feature map size 對不對得上
+  - 把同一張 256-by-256 的 image 保持不變切成 4 張，每張都是 64-by-64，但很有可能滿多圖片會變成沒有目標
+- 注意事項
+  - COCO format 的 json string 給的是絕對大小!
+- 在 GeeksForGeeks 有 [Python JSON](https://www.geeksforgeeks.org/python-json/) 教學
+- 首要問題 [COCO json annotation to YOLO txt format](https://stackoverflow.com/questions/68398965/coco-json-annotation-to-yolo-txt-format)
+  - 選項一 [coco2yolo](https://github.com/tw-yshuang/coco2yolo)
+  - 選項二 [pylabel](https://github.com/pylabel-project/pylabel)
+    - ```pip install pylabel```
+    - 還可以找到 ```pyabel```, 跟 ```pylabels``` 這兩個不是我們要的XD
+
+
+### 11/20
+- C. Decourt, R. VanRullen, D. Salle and T. Oberlin, "[DAROD: A Deep Automotive Radar Object Detector on Range-Doppler maps](https://ieeexplore.ieee.org/document/9827281)," *2022 IEEE Intelligent Vehicles Symposium (IV)*, 2022, pp. 112-118.
+- main contributions
+  -  propose a new model for object detection and classifcation using Faster R-CNN
+      -  S. Ren, K. He, R. Girshick and J. Sun, "[Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://ieeexplore.ieee.org/document/7485869)," in *IEEE Transactions on Pattern Analysis and Machine Intelligence*, vol. 39, no. 6, pp. 1137-1149, 1 June 2017.
+  - propose a lightweight backbone
+- motivatedby the fact that RAD tensors are more computationally demanding to produce for radar Micro Controller Units (MCUs)
+
+
+
+
 
 ### 值得關注的作者
 - 偶爾看一下他們有沒有出什麼新東西可以跟XD
@@ -1151,5 +1188,6 @@ print(f"Test dataset size:  {n_samples_test}")
   - [Chih-Yu Wang](https://ieeexplore.ieee.org/author/37085674145)
   - [Yuyi Mao](https://ieeexplore.ieee.org/author/37085508893)
   - [Jun Zhang](https://ieeexplore.ieee.org/author/37407590900)
+  - [Jung-Chieh Chen](https://ieeexplore.ieee.org/author/37280673400)
 
 
