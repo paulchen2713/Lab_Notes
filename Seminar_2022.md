@@ -452,7 +452,78 @@
 
 
 #### **Notes**
-- A
+- 10/14 Overview of CPU Architecture and Design
+  - Taiwan Design Center CPU Team
+  - Lu 成大電機博士
+- 高通全球 CPU Team 有哪些
+  - 6個 site 美印台 3地 
+  - 高階晶片 800系列 主要美國 台灣輔助
+  - 中階 主要台灣
+  - 低階 印度
+- team work 4 parts
+  - 效能分析 
+  - 架構跟模型 
+  - 設計跟實作
+- 什麼是 CPU 效能架構團隊(? What is a CPU Architecture and performance tram?
+  - 負責訂定下一代 CPU spec，預測未來所需規格，負責分析、做模型
+  - what next product is? 需要定義問題
+  - is it better than competitor?
+  - if not, why we are inferior?
+  - next, how to improve power, performance, and thermal?
+- 競爭態勢分析 competitive analysis
+  - 跟其他公司甚至國家比較
+- make a systematic analysis method 
+  - competitive analysis 了解我們有沒有比較好
+  - performance issues analysis 為什麼我們沒有比較好
+  - performance, power, and thermal projection 
+- competitive analysis
+  - fully analysis competitor's CPU micro architecture and architecture
+    - 如何知道蘋果手機的 l1 cache?
+  - performance issue analysis
+    - 確認產品線才比較，比較同量級的對手
+  - performance projection 
+  - how to improve our product?
+  - deep diving benchmark characteristic to do more accurate performance projection
+    - 必須提出合理的 model / benchmark 去說服大家
+  - performance projection model 
+    - 什麼是 memory bound? 讀寫頻率快到一定程度後 L1 cache 會跟不上
+  - power projection model 
+    - 溫度越高漏電流越大，成正相關 
+    - 如何建模的(?
+- 招人 可能可以收新人 很像研究單位
+  - skill requirements
+    - computer architecture
+    - micro-architecture modeling
+  - language
+    - Python, C/C++
+- Design implementation
+  - 台灣有的單位
+  - RTL Design Team
+  - Front-End Synthesis Team
+  - Digital Verification Team
+  - Power Team
+- 只收熟悉 RTL coding 的
+- CPU Design 下面再分 2 個
+  - CPUSS design
+  - system design 韌體
+- MM RD Team
+  - RD, Rework and Debug lol
+- Introduction
+  - Applications on RICA
+  - RICA design tools
+  - RICA on CGRA
+  - SoC implementation on Architecture
+  - Digital Design Flow on RICA
+  - Difficulties and Challenges
+- Intro
+  - RICA 概念很像是 FPGA，只是使用者可以把演算法實作在 SoC 上面，用 C code 實作即可，不像 FPGA 得寫 RTL code
+  - FPGA 的缺點是其並非軟體可實現的，必須寫 Verilog，更不用提開 ASIC 門檻更高
+  - RICA 產品應用
+    - AR VR
+    - CV
+    - ISP with ML accelerator
+    - Multi-sensor applications
+    - Depth Camera (RGB + Depth sensor) & Stereo imaging 我有興趣(!
 
 
 #### **Feedbacks**
@@ -489,20 +560,541 @@
 
 
 #### **Notes**
-- A
+- ultra-low power AI at the edge
+- Agenda
+  - Himax company and products introduction
+  - AI + IoT revolution
+  - Challenges of always-on smart sensing solution
+  - Himax AIoT platform introduction
+  - Always-on sensing applications
+  - 從硬體軟體的角度出發，提出新的方案
+- 海馬 Himax
+  - 過去 
+    - display driver 是目前主力產品，如車用顯示面板
+  - 中期
+    - 有做先進光學IC開發
+  - 近期
+    - 3D sensing, AoS smart sensing
+  - 不是純design house，除了IC也有做IP、做完整產品、做光學元件等等
+  - 辦公室地點 
+    - 美日韓中美以色列、台灣有台北新竹臺南辦公室
+  - 在Nasdaq上市，今年是第21年
+- “built material” 硬體公司的宿命，一直在做 cost down
+- how to make hardware S3xy again?
+  - apply AIoT on product, collecting data to improve user experience
+- S3xy hardware
+  - user experience
+  - hardware as a service
+  - personalization
+- AI + IoT revolution
+  - 哪些應該放在 edge 哪些應該放在 cloud? 
+- requirements
+  - low power
+  - low latency
+  - privacy
+- use case in endpoint AI application 
+  - vision
+    - 海馬主力是 vision
+  - voice
+  - accelerometer
+- challenges 
+  - low energy consumption
+  - real time performance
+  - NN model deployment
+- 硬體上 ultra-low power always-on image sensor, ultra-low power AI processor
+- 軟體上 ML Inference Library
+- 算法上 Tensorflow Lite for Microcontroller
+- 1顆鈕扣電池可以撐2週、大小比 raspberry pi 還小
+- 公司未來期望能提供系統整合服務，客戶只要提供 data，其他都能自動化處理
+- WiseEye 
+  - vision/voice/vibration algorithm
+  - ASIC AI processor
+  - CMOS ultra-low power image sensor
+  - Mic
+- 如何節省功耗?
+  - 搬data、搬weights是AI演算法耗電最多的部分
+  - 用SRAM為主，因為DRAM, DDR太耗電，大概會高10倍
+  - near memory computing 設計
+- easy to deploy using tensorflow lite micro framework
+  - workflow using tensorflow lite micro
+  - pick a model
+  - optimized and convert, float32 轉 int8
+  - deploy
+  - open source sw tool chain
+  - integrated with Synopsys embARC MLI optimized kernel
+  - machine learning inference (MLI) optimized library
+  - integrated with Tensorflow Lite Micro
+- Himax WE-I Plus MCU 網路上就買得到
+  - 一片開發版台幣2600
 
 
 #### **Feedbacks**
-- A
+- 今天書報討論的主題為 Ultra-low Power AI at the Edge: Making Always-on Sensing a Reality，是奇景光電 (Himax) 近期的新產品、新研發方向，演講者是奇景光電的陳有棟副總，講者學經歷豐富，成大電機學碩、先後在凌陽、鈺創、聯陽擔任處長及資深工程師，並於2013年加入奇景光電，專長為數位/類比混合信號處理電路及系統設計，超低功耗電路及系統設計，目前負責設計工程中心，主要負責超低功耗邊緣運算晶片及系統開發，超強。演講的內容從奇景的公司及產品介紹開始，含括近期 AI + IoT 演進、Always-On Smart Sensor會遇到的挑戰、奇景 AIoT 開發平台介紹、Always-On Sensing (AoS) 應用。
+- 奇景目前的主力產品是 display driver (IC) 如車用顯示面板，但不知道產品跟聯詠在做的有沒有衝突? 也有做先進光學IC及光學元件開發，而近期是在發展3D sensing, AoS Smart Sensing，公司不是純design house，除了IC也有做IP、做完整產品、做光學元件等等。辦公室地點有美、日、韓、中、美、以色列，而台灣在台北、新竹、台南有據點，總部應該是在台南。公司於2001年在Nasdaq上市，今年是邁向第21年。
+- 公司發展想避開硬體公司的宿命，也就是 “一直在做 cost down”，為此想從硬體軟體的角度出發，提出新的方案 “how to make hardware S3xy again?” 可以應用 AIoT 於各個產品上蒐集資料以增進使用者體驗。“怎樣是一個 S3xy 的硬體?” 增進使用者體驗、把硬體也作為一種服務(service)、並讓不同使用者有客製化的感覺(personalization)。
+- AI + IoT 的演進，有個重要的問題是 “哪些應該放在 edge? 哪些應該放在 cloud?” 而 AIoT 要求低功耗 (low power)、低延遲 (low latency)、及隱私問題 (privacy)。在終端 (endpoint) 常見的 AI 應用需求有 vision (奇景主力是 vision)、voice、跟 accelerometer，會遇到的挑戰有低功耗 (low energy consumption)、實時運算 (real time performance)、及模型佈署 (NN model deployment)。硬體上要能提供極低功耗的影像感測器 (ultra-low power always-on image sensor) 以及對應極低功耗的 AI 處理器 (ultra-low power AI processor)，為什麼是影像? 因為奇景主力是做顯示器IC 的，功耗需要多低，舉例1顆鈕扣電池可以撐2週，且開發版大小比 Raspberry pi 3還要小；軟體上要支援 ML Inference Library，算法上最好能和現有主流深度學習框架兼容，如 Tensorflow Lite for Microcontroller。公司未來期望能夠提供系統整合的服務，客戶只要提供資料，其他都能自動化處理。
+- 目前出的產品是 WiseEye，提供現有的 vision/voice/vibration algorithm，主要是 Tensorflow Lite 支援的 pre-trained model、提供一顆 ASIC AI processor 負責相關運算，其實是一顆小型的 AI 加速器，也是現今非常多硬體實驗室在做的題目、提供極低功耗的 CMOS 影像感測器 (CMOS ultra-low power image sensor)，這剛好是奇景的強項、甚至能額外提供麥克風 (Mic)，就看有無此需求。
+- 關於功耗的部分，他們研究調查發現搬data或搬weights是AI演算法耗電最多的部分，所以有額外設計硬體去降低搬運資料的耗電量，記憶體是用SRAM為主，因為DRAM或DDR太耗電，大概會高10倍，並採用 near memory computing 設計。應用層是我們寫軟體比較關心的部分，產品有支援 Tensorflow lite micro framework 的佈署流程，硬體有支援 Machine Learning Inference (MLI) optimized library 並跟 Synopsys 的 embARC MLI optimized kernel 整合，且有提供開源的軟體工具 (open source soft-ware tool chain)，但我去他們官方 github 看看，覺得文件跟sample code都有點不足，新手小白或是 maker 很難自己隨便去玩玩看。最終產品是 Himax WE-I Plus MCU 開發版在網路上就買得到，一片開發版台幣 2600 元，其實不貴，跟樹莓派或Arduino比還算有競爭力的價格。
+- 課後有留下來討論一下做邊緣計算相關應用的方向及建議，像是如何了解或定義 “edge device” 上應有的算力、記憶體等等，有無一個公訂的標準，做下游應用怎麼知道硬體規格合乎需求? 副總解釋說他們的 github 提供晶片的 emulator 供使用者做測試，且支援 C++ 跟 python 的Tensorflow Lite API，我超級有興趣但上網查還沒看到，可能還沒正式釋出吧? 但他們提供的 SDK 看起來不是很好用，還要再觀望，期待 PyTorch 版本。
+
 
 
 
 ## **10/28**
 #### **Topic**
-- A
+- Lifelog Mining and Applications
 
 #### **Date & Time**
 - 2022 / 10 / 28 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 顏安孜 教授 國立交通大學 資訊工程學系
+
+#### **Abstract**
+- When recalling life experiences, people often forget or confuse life events, which necessitates information recall services. Recently, people are used to recording their life experiences via writing social media posts, taking photos, or filming videos. 
+- In my work, I aim to extract personal life events from social media posts, daily dialogues, and videos. The extracted events are transformed into structured representations for storing in the personal knowledge base. 
+- To support the user query their life experiences over personal knowledge base, a proactive information recall system is constructed. 
+- We use a human-annotated life experience retelling dataset to detect the right time to trigger the information recall service. We propose a pilot model—structured event enhancement network (SEEN) that detects life event inconsistency, additional information in life events, and forgotten events. 
+- A fusing mechanism is also proposed to incorporate event graphs of stories and enhance the textual representations. To explain the need detection results, SEEN simultaneously provides support evidence by selecting the related nodes from the event graph. 
+- Experimental results show that SEEN achieves promising performance in detecting information needs. In addition, the extracted evidence can be served as complementary information to remind users what events they may want to recall.
+
+#### **Short Bio**
+- Dr. An-Zi Yen is currently an Assistant Professor in the Department of Computer Science at National Yang Ming Chiao Tung University. 
+- Her research interests include natural language processing and information retrieval. 
+- Her work has been published in AAAI, SIGIR, WWW, CIKM, and COLING.
+
+
+#### **Notes**
+- Lifelog Mining and its Applications 生活記錄探勘及其應用
+  - by An-Zi Yen 
+  - azyen@nycu.edu.tw
+  - 研究專長: NLP, ML/DL, Data Mining
+- Outline
+  - personal knowledge base construction
+  - from world knowledge to personal knowledge
+  - personal life event extraction
+  - proactive information recall 
+    - 輔助記憶，重點是 “主動” 是最新的研究，以前已經有做過 “被動” reactive 的版本
+- lifelong applications
+- lifestyle analysis
+- diet monitoring
+- memory recall assistance
+  - 在什麼情境下的幫助(?
+  - 如幫助社交上的 memory loss
+  - 也許透過某種 personal knowledge graph
+- 記憶輔助的構想
+  - memex = memory + index
+  - by Vannevar Bush in 1945
+- what is Lifelogs?
+  - 如日記、部落格、社群軟體 (社交媒體平台)
+  - 從純文字為主、到圖文、到影像為主、除視覺上還甚至有 GPS, heart rate 等等資訊
+  - 如何以結構化的方式來儲存這些資訊記錄(?
+- from world knowledge to personal knowledge 概念源自自然語言處理
+  - world knowledge base
+  - personal knowledge base
+  - 這些knowledge base是整理成graph的形式儲存
+- how to use Lifelogs?
+  - extract Lifelogs 如何抽取不同模態的資料
+  - construct personal knowledge graph 儲存成同類型的個人知識圖譜，如圖片會轉成用文字描述的方式儲存
+  - recall life experience 適時提醒用戶
+- personal knowledge base construction
+  - SIGIR, 2019
+  - IPM, 2020
+- lifelogs in social media
+  - 儲存 head entity 跟 tail entity 跟 relation 加上 time 源自 world knowledge base 概念
+  - 也可以理解成 subject, predicate, object 跟 time 衍伸的 personal knowledge base 
+  - 透過 語言學上的 frame name 去分類
+  - 使用者表述有分 顯性 explicit 跟 隱性 implicit
+  - 混合自然語言跟圖片資訊去解讀隱含訊息
+  - 隱性通常會省略動詞
+  - 設計一系統可以從圖片、影像推理出使用者真正的意思 找動詞
+  - 蒐集 25344 則中文 tweet 推文 人工標註
+  - 共 18 名使用者 (2009~2017)
+  - ntnulplab 的 github
+- mining Lifelogs from multimodal data
+  - mining Lifelogs from vlog
+  - action recognition
+  - 2 個 benchmark dataset
+    - epic-kitchens, first personal
+    - charades, indoor, third personal
+- low-level event vs high-level event
+  - Computer Vision 著重的點是每一步驟的細節
+  - 但 memory recall system 在意的是事件的意義
+  - 舉泡咖啡為例
+    - CV / NLP 會推理出，步驟一磨豆子，步驟二沖咖啡，步驟三加牛奶...
+    - memory recall system 期望是推理出 "泡拿鐵"
+- challenge: semantic gap
+  - 現有資料集的資訊或現有自然語言模型能辨識或提取的資訊不符需求
+  - low-level concept vs high-level concept
+  - low-level info
+    - color, shape, texture, embedding
+  - high-level info
+    - object, scene, description
+- dataset preparation from lifelog on youtube
+  - 1733 videos collected from 3 selected youtubers ranging from 2016 to 2019
+  - youtuber 會邊拍影片邊自述在幹嘛
+  - personal life event 組成
+    - Lifelog activity
+    - textual argument
+    - visual argument
+- challenge: visual and textual information mismatch
+  - youtuber的敘述跟當前影像內容對不上
+  - 怎麼把語言描述 align 的影像資料上
+- how to extract life event from TV series?
+  - 電視劇的記錄比較完善，如有字幕、文法是對的、描述精確
+  - e.g. 取材 the big bang theory, sitcon
+  - 把問句轉成描述句
+- mining Lifelogs from daily dialogues
+  - 別人整理好的資料集，有 2 種分類
+    - task oriented dialogue 有個明確的目的，如訂餐廳訂飯店訂票等等
+    - human conversation 沒有明確目的，只是閒聊，內容跳痛，個人生活事件豐富
+  - ntnulplab/Lifelog-Dialog
+- proactive information recall
+  - SEEN: Structured Event Enhancement Network, EMNLP, 2022
+- SEEN network 的應用目標
+  - 提醒、修正、更新
+- 微軟的 hippocorpus 資料集
+  - pre-retold story and post-retold story
+  - 從具體描述變成某種大致正確的模糊想法
+- event type annotation
+  - 事件的格式，把句子先預處理標成 subject predicate 跟 object
+  - pre-retold 
+    - unforgotten
+    - forgotten
+  - post-retold 
+    - consistent 
+    - inconsistent 
+    - additional
+- event type vs NLI (Natural Language Inference)
+  - 在意的是 “整體是對的，但細節上不一致” 比 NLI 更難
+  - ntnulplab/SEEN
+- data analysis
+  - 為什麼需要這個服務
+  - 遺忘跟年齡沒有絕對關係，但是是統計上的意義
+- task definition
+  - event type identification
+    - 判斷描述一不一致，pre-跟post-會輪流作為reference
+  - support evidence extraction
+    - 先判斷遺忘不遺忘後，得提取出證據來幫助回想
+- model structure
+  - transformer based model 做第一步資料提取，需要能吃大量文字資料的模型 e.g. longformer 或 Bert
+  - coreference resolution 跟 super node insertion (GCN的常見手法)
+  - node feature construction + self attention 輸入到 GNN layer
+  - 一層 fusion layer 做圖文資訊整合，從 textual encoder 跟 graph encoder 的輸出取第一位慢慢融合在一起，用 GeLU 激活
+    - fusion layer 是一個單層的 前饋神經網路 做資訊融合
+  - 輸出先接 2 個分類器 跟 1 個 evidence extractor
+- ablation study
+  - 測試 event graph 等等機制是不是真的有效
+- NLI analysis
+  - pre-trained 在 NLI 上有沒有幫助(? 其實沒什麼用
+  - metric 是 overall, consistent, inconsistent, additional, unforgotten, forgotten
+- vision API 是以第三人稱直接描述細節事件
+- 希望未來是能做到直接生第一人稱的敘述
+
+
+#### **Feedbacks**
+- 今天書報討論的主題為 Lifelog Mining and its Applications 生活記錄探勘及其應用，講者是交大資工系的顏安孜教授 (Prof. An-Zi Yen)，研究領域跟專長有自然語言處理 (Natural Language Processing, NLP)，機器學習/深度學習 (ML/DL)，跟資料探勘 (Data Mining) 等等。
+- 老師的氣質給人一種心態年輕、個性又可愛的感覺，整體演講的氛圍跟節奏很讚，非常有趣的學術報告且是報告近期最新的成果，相信能帶給大家一點提示與警醒。利用高深的深度學習、資料探勘及軟體工程技術去做一個乍聽之下很不學術的學術研究且又做得很厲害這點，馬上讓人聯想到也是通訊所的李祈鈞教授。
+- 高深的深度學習像是自然語言處理，NLP 常會用到大型語言模型如 2018 年的 BERT, 2020 年的 Longformer 等等，模型又大又複雜且實驗室電腦/伺服器不夠強不要說 pretrain 連 fine-tuning 都跑不動。
+- 資料探勘的部分要先從網路上大量爬資料、累積足夠大的資料量基數，初步探勘出符合需求的資料，如必須能保留 temporal feature，還要轉換成統一文字格式，再來是人工做 high-level 的 semantic labeling 並建立對應的 personal knowledge graph，還要做 coreference resolution 跟 super node insertion，這兩個 GCN 上的常見手法，至此可能才稍微算是準備好訓練資料，很好奇是如何以結構化的方式來儲存這些資訊記錄? 
+- 這樣的爬蟲算法雖然技術上不是非常困難但光想就覺得真的超級麻煩，要爬異質結構的資料如日記純文字為主、部落格有圖有文、社群軟體又有像是部落格、粉專的 Facebook 或圖片影像為主的 IG，除視覺上還甚至有 GPS 位置資訊、呼吸心率生理數據....等等，也很好奇是如何抽取不同模態的資料? 
+- 儲存成同類型的個人知識圖譜，如圖片會轉成用文字描述的方式儲存，如利用微軟的 vision API 直接轉換圖片成文字，但 automatic labeling 得到的會是偏向 Natural Language Inference (NLI) 風格的標籤，這又跟所需的 semantic label 稍有一些差別，整個又是大工程。
+- 建立這個大系統的整個過程都牽涉較深的軟體工程技術，不然光是要把東西串起來大概光相容性 debug 就飽了，很好奇這些開發過程大概需要多少人手、耗時多久累積下來的。
+- 唯一小失望是老師給的 github repo link 已經失效了!!
+
+
+
+
+## **11/04**
+#### **Topic**
+- Joint Transceiver and Intelligent Reflecting Surface Design for mmWave Massive MIMO Systems
+
+#### **Date & Time**
+- 2022 / 11 / 04 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 陳榮杰 教授 國立成功大學 電機工程學系
+
+#### **Abstract**
+- This study aims to maximize the **spectral efficiency** of an intelligent reflecting surface (IRS)‐assisted hybrid millimeter‐wave massive multiple‐input–multiple‐output system by jointly optimizing the hybrid precoding at the base station, hybrid combining at the user equipment, and reflecting beamforming at the IRS, where the reflecting beamforming and analog precoding/combining are implemented with finite‐resolution phase shifters. 
+- This joint design problem can be decoupled into reflecting beamforming and hybrid precoding/combining design problems. However, such a decoupled approach experiences difficulties in solving the reflecting beamforming design problem. 
+- A known solution further reformulates the reflecting beamforming design problem into a more tractable problem addressed by a Riemannian manifold optimization (RMO)‐based algorithm. However, the application of the RMO‐based algorithm to solve the reformulated problem may lead to performance degradation given that the reformulated problem differs from the original one. 
+- Moreover, the RMO‐based algorithm is tailored for the IRS with infinite‐resolution phase shifters rather than practical finite‐resolution phase shifters. Furthermore, the complexity of the RMO‐based algorithm remains high. 
+- Therefore, we propose two coordinate descent method‐based algorithms to tackle these issues. Simulation results demonstrate the effectiveness of the proposed algorithms compared with the state‐ of‐the‐art RMO‐based algorithm.
+
+#### **Short Bio**
+- Jung‐Chieh Chen (陳榮杰) received the B.S. degree in electrical engineering from the Tatung Institute of Technology, Taipei, Taiwan, the M.S. degree in electrical engineering from National Chung Cheng University, Chiayi, Taiwan, and the Ph.D. degree in communications engineering from National Tsing Hua University, Hsinchu, Taiwan. 
+- He joined National Kaohsiung Normal University, Kaohsiung, Taiwan, as an Assistant Professor in August 2005. He was promoted as an Associate Professor and a Full Professor in March 2009 snd March 2012, respectively. 
+- Since February 2022, he has been a Full Professor with the Department of Electrical Engineering at National Cheng Kung University, Tainan, Taiwan. 
+- His research interests include wireless communication systems, radio resource management, stochastic optimization methods, and signal processing for communications. 
+- Prof. Chen currently serves as an Editor for the IEEE Transactions on Vehicular Technology and the IEEE Wireless Communications Letters. He is also an Associate Editor for the IET Signal Processing. He is currently the Chair of the Tainan Chapter for the IEEE Communications Society.
+
+
+#### **Notes**
+- joint transceiver and IRS design for mmWave massive MIMO systems
+- 成大電機系電通所 陳榮杰教授
+- 2005 年清大通訊博班畢業
+- outline
+  - hybrid beamforming for mmWave massive MIMO systems
+    - motivation and hybrid beamforming
+    - system model
+    - manifold optimization
+  - motivation
+    - RF chain
+    - 基本上看成是 一個 ADC + OP amp 
+    - 缺點是高成本 高功率消耗
+    - 且 digital beamforming 所需的 RF chain 數量會呈指數型成長
+- joint Tx and RIS design for mmWave massive MIMO systems
+- other RIS based works
+  - multiple antenna multiple user 超難
+  - 也許可以考慮 RIS + amp 但有不是真的考慮 amp 不然就是 relay 了
+  - 如何讓 RIS 板子變大但成本不要加太高，方法是可以一次只讓部分元件啟動，但如何決定要讓誰啟動(? 啟動即給一點功率(放大)
+  - system model得考慮 active mode 跟 passive model，主動會造成 noise 也被放大
+- 考慮 點對點的 hybrid beamforming design
+  - Tx 小的 digital precoding + 大的 analog precoding = beamforer (phase shifter)
+  - Rx 即反過來 
+- Riemann manifold optimization, RMO
+  - 可以應用在解 constant modulous constraint problem
+  - 著重 step size $\mu$ 的設計，可以以數學解或用 DL-based method 去找 step size
+  - 缺點是 迭代次數很高
+- 分別解 2 個 objective function 可以算是 joint design 嗎(?
+  - 交替最佳化的精神
+  - 很難知道迭代或交替計算最後會不會收斂，很難證明
+  - 假設找出 digital beamforming 如何找出對應的 hybrid beamforming?
+- proposed method, GP algorithm
+  - gradient projection based alternating minimization algorithm for hybrid beamforming design, 2019, IEEE communication letters
+- RIS 
+  - passive 沒有放大器 就不會有雜訊放大的問題
+    - 也不需要ADC成本更低
+    - 用 diode 跟 phase shifter 組成
+  - 跟 hybrid beamforming 一樣只考慮 phase 
+    - 移相器得考慮 finite solution 
+  - solution跟power呈指數關係 且RIS相位設計的複雜度太高
+    - high resolution 對應的是 super high power (指數關係)
+  - 得考慮 RIS 相位的 constraint 如離散相位
+    - RIS 解析度極低 如 1、2-bit 而已 
+- two stages?
+  - 先做 fully digital beamforming
+  - 利用 mmwave 稀疏性特徵 (假設) 簡化問題
+- 本質上是設計 RIS 的相位
+  - 然後可以反推剩餘的 precoder 跟 combiner 
+- coordinate descent method, CDM based framework
+  - 一次解一個變數 感覺很像是 greedy
+  - 變成 一維 的暴力搜索 1D ESA Algorithm 又因為只有 1、2-bit所以可以很快搜出來 複雜度其實算低
+- modified CDM algorithm
+  - 想要找出各次 updates 之間有沒有什麼關聯 透過避免重複計算降低複雜度(? 像是某種 Dynamic Programming?
+  - 發現其實可以不用每次都 update 很多參數不需要時時更新 reuse weights?
+- RIS元件數跟複雜度降低倍數成正比 e.g. N個element 複雜度降低N倍
+- RMO 會大幅受 real resolution 影響
+- 演算法收斂性怎麼證明(? 必須是 Convex 
+- 透過考慮 channel estimation error 也就是考慮 AoA, DoA 有一個 uniform distribution 的 error $\epsilon$ 即存在一個 $\{-\epsilon, \epsilon\}$ 分布的 error，至少要呈現自己的方法跟其他方法有一樣的 decay 趨勢、不會整個 crash 掉就好
+- 老師可以推演算法的 Big-O 複雜度，超強
+
+
+
+#### **Feedbacks**
+- 今天書報討論的主題為 Joint Transceiver and Intelligent Reflecting Surface Design for mmWave Massive MIMO Systems，講者是成大電機的陳榮杰教授，老師是 2005 年清大通訊第一屆博班畢業，以前是在高師電機(光電與通訊工程)學系任教，報告的論文是老師近期第一線做研究的成果，覺得升上教授後還在第一線做研究、自己寫論文、課又教得很好，真的非常難能可貴，可惜陳老師不是來清大，但有光浩來也超讚的。
+- 演講內容大致分 3 個部分，一是相關背景知識 hybrid beamforming for mmWave massive MIMO systems, motivation, system model, manifold optimization，二是怎麼設計 joint Tx and RIS design for mmWave massive MIMO systems，三是其他非主流 RIS 相關研究。
+- 老師演講的節奏跟重點呈現都超讚的，很可以想像老師的課會超讚、在老師底下做研究應該也超讚。在書報結束後的問問題、聊天環節時，老師說因為底下沒有人手、外加對 DL-based Optimization Methods 沒有時間去深入了解跟實際去 tune 演算法，所以目前解法都是以傳統數學最佳化方法為主。我有問 2 個問題，一是這樣分別解 2 個 objective function 可以算是一種 joint design 嗎? 可以，有一篇發在頂會 citation 很高的論文有推導說明這個方法，因為之前學長的研究也是採取先設計 digital beamforming 再設計對應的 hybrid beamforming，結果就被口委質疑說這樣哪能算是 joint design 或 hybrid? 二是先求 digital 再求 analog 的過程有必要一直迭代求得一個收斂結果嗎? 問題是其實我們沒辦法知道這樣算最終會不會收斂，這個問題目前無解，我們無從得知，會問這個問題一樣是因為之前學長口試被問說為什麼只算一次最佳化? 怎麼不迭代一直算直到收斂?
+- 因為實驗室也有在做用 hybrid beamforming 且有數學解也有 learning-based 的解，也是解某種 Manifold Optimization 的問題，只是是用 deep unfolding 的方法，所以對這個報告主題有種相當熟悉的感覺，且陳老師提供的建議比指導老師還有用。
+
+
+
+
+
+
+## **11/11**
+#### **Topic**
+- 全球 5G 市場發展趨勢及應用
+
+#### **Date & Time**
+- 2022 / 11 / 11 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 李冠佑 副理 安立知股份有限公司
+
+#### **Abstract**
+- 2022 年 5G 已經如火如荼的商業化，透過這次演講，會對於市場趨勢的作簡略的介紹，並針對 5G 特有的特性以及生活中常見的應用介紹說明。
+
+
+#### **Short Bio**
+- 國立交通大學電信工程學系碩士
+- Qisda 佳世達科技 通訊協議軟體工程師
+- Anritsu 安立知 業務暨技術支援部 技術副理
+
+
+#### **Notes**
+- 11/11 全球5G市場發展趨勢與應用
+  - 業務暨技術支援部 FAE 
+  - 李冠佑 Eric Lee 副理
+  - 高階通訊量測儀器、震盪器、synthesizer、oscillator?
+- Background
+  - 手機 通訊協定軟體工程師 SW
+    - 通訊相關部門通常分成 射頻 跟 協議
+  - 日商 Anritsu 通訊量測儀器設備商 FAE
+    - 分成 pre-sales 跟 post-sales
+    - 售前提供目前及未來可能產品
+    - 售後有產品支援、使用教學
+- What's 5G?
+  - 日本內政部的廣告影片
+- Evolution of Mobile Communication
+  - 1G 
+    - 語音 voice
+  - 2G 
+    - 簡訊 text message
+  - 3G 
+    - 網路 cellular network (not wifi)
+    - 圖像 image 
+    - 影片 video
+  - 4G 
+    - 非手機周邊產品能聯網 如平板 (wifi and cellular network)
+  - 5G
+    - URLLC 1ms latency
+    - eMBB 5~20 Gbps
+    - mMTC $10^6$ devices per $km^2$ 
+  - 5G New Radio 不會同時支援這3點 
+    - 如 router, wifi AP 需要 eMBB，手機基於耗電問題其實不需要
+    - 如 自駕車系統 需要 URLLC 可靠度 低延遲
+    - 如 物聯網、邊緣計算系統 需要 mMTC
+- 5G Release Standard Overview
+  - Release 15~18
+  - R15 從 eMBB 開始
+  - R16 改進 eMBB 頻段問題 
+    - 分 licensed 跟 unlicensed band 
+    - IIOT/NPN、NR sidelink for automotive
+  - R17 今年2022年中的 spec 大致訂定下來 
+    - NR NTN 低軌道衛星通訊 
+    - VR/XR
+  - R18 是2022年末開始討論 
+    - 比較特別的有 UAV、AI
+  - 平均每個 release 會持續討論 1年半左右
+- Market Status Update
+  - 通常分 美、日韓中、歐
+  - Spec 已經出到 R18 但截至 2023年 美國才剛把 R16 商用化
+- Key Technology of 5G
+  - Frequency
+    - FR1     410MHz - 7.125 GHz
+    - FR2-1 24.25GHz - 52.6 GHz
+    - FR2-2 52.6GHz - 71GHz
+  - 其他往上到 100GHz 都是 5G 的預備頻段但還沒被規範
+    - 4G 是到 6GHz
+    - 5G 是 6GHz 到1 00GHz 左右
+    - licensed-band 會在 spec 訂定的時候就規範清楚，不會更動的
+  - Supplementary Uplink
+    - uplink 打較低頻率、downlink 打較高頻率 以達到相同 coverage
+- Voice Related Services
+  - NSA service 
+    - VoLTE
+  - SA service
+    - EPS Full Back
+  - SA service 
+    - VoNR 最終目標
+- Public Warning System 
+  - 通常法規會要求要支援
+  - CMAS / ETWS
+- 5G 相關考慮點
+  - low latency
+  - reliability
+  - peek data rate
+  - coverage
+  - low complexity
+  - power saving
+- 5G 相關方案
+  - eMBB
+  - URLLC
+  - LTE-m
+  - NB IoT 極低複雜度方案
+  - RedCap 中庸版本方案
+- Local 5G / Private 5G
+  - 不是電信業者提供的 5G 服務稱為 private 5G 如企業專網、特殊應用 (農林漁牧、災害預防、娛樂系統)、針對特別小部分客群、範圍大於wifi 但小於公共網路 (工廠、產線)
+  - network slicing 技術，透過通訊協定去切割資源
+  - 跟 wifi 不一樣的是，wifi 是 data packet 的機制，幾乎沒有客製化的空間，沒辦法有太多控制
+  - 政府會特別保留頻段 
+    - 如日本規範 4.6GHz - 4.9GHz 為 private 5G
+- ORAN, Open Radio Access Network
+  - 標頻段成本、部署對應頻段的硬體設備成本
+  - 3G 一開始分散式部建 連上 RNC (Radio Network Controller)
+  - 4G 整合成 中心化的 eNB 再分 BBU 跟 RRH
+  - 5G 變成 ORAN，5G 之前是電信業者提供 total solution 中間任何設備都無法更換
+- ORAN把 gNB 分成 O-CU, O-DU, O-RU，台灣大宗在做 RU
+  - O-RU 是 實體層 (phy-low) + RF
+  - O-DU 是 實體層 (phy-high)，訊號調變解調是 DU 負責
+  - O-CU
+- NTN, Non Terrestrial Network
+  - 聯發科有實驗室等級手機連衛星
+  - T-Mobile 有跟 starlink 合作提供衛星聯網
+- 衛星通訊
+  - GEO / MEO 
+    - 衛星太高 對應延遲大
+  - LEO / VLEO 
+    - 500~2000公里以內算是低軌道衛星，成本極高 只能使用3、5年
+  - HAPs 
+    - 高空載具
+  - LAPs 
+    - 無人機載具
+- 挑戰 
+  - 天線設計
+  - strong Doppler effect 
+  - 成本要可接受，要能跟現有的商用技術競爭
+  - 目前只能存在於完全無一般通訊服務的市場，如救災
+- 衛星通訊應用
+  - relay 目前大宗
+  - BS
+  - backhaul
+- V2X, Vehicle to Everything
+  - 主要考量 
+    - packet rate 
+    - communication range
+- Reliable Communication
+  - everyone
+  - everywhere 
+    - 如 tunnel
+  - different generations 
+    - 現在的車跟未來的自駕車相容
+  - scalability 
+    - 對抗 congestion 
+- 兩大陣營 
+  - DSRC 是 IEEE 802.11p 支援，所有網路設備都要重新部建，屬 IEEE 旗下
+  - C-V2X 是延用 4G LTE 跟 5G 設備，屬 3GPP 旗下
+- eCall, Emergency Call
+  - 車用，當車禍發生時自動抓取 GPS 訊號，自動撥通電話通知
+    - emergency call 
+    - provisioning 
+    - emergency call center 
+    - quicker help
+- 6G requirements
+  - 前 4 在5G已經有考慮到
+    - extreme high data rate / capacity
+    - extreme low latency
+    - extreme high reliability
+    - extreme massive connectivity
+  - 後 2 是新一點點的
+    - extreme coverage
+    - extreme low energy and cost 
+  - 大致在 2024年後才會開始討論 6G spec
+
+
+#### **Feedbacks**
+- 今天書報討論的主題為全球5G市場發展趨勢與應用，講者是安立知 (Anritsu) 業務暨技術支援部的李冠佑 (Eric Lee) 副理，Anritsu是日本的高階通訊量測儀器設備商，講者是交大電信碩畢，之前曾在佳世達科技 (Qisda) 手機部門擔任通訊協定軟體工程師，手機(無線)通訊相關部門通常分成射頻 (RF) 跟 協議 (Protocol)，現在在日商Anritsu 做FAE，有分成 pre-sales 跟 post-sales，售前提供目前及未來可能產品、售後有產品支援、使用教學等等。
+- 覺得講者的報告很讚，雖然都在分享一些規範規定、有點記憶性的內容但又不會讓人覺得想睡，且語速剛好能讓我把重點記錄下來。比較喜歡這種不是非常深入切入某個主題的演講，如果研究做得題目不是非常相關、或講者沒有講得很好的話根本很難有什麼收穫，像這次講者簡單分享各個 spec 的規範跟重點的話，給大家一個 5G / 6G 的全局觀，這樣我們就不用自己讀一堆 spec 再慢慢累積獨到觀點，可以馬上有一個從設備商角度出發的見解。
+
+
+
+## **11/18**
+#### **Topic**
+- A
+
+#### **Date & Time**
+- 2022 / 11 / 18 (Fri) 14:20 ~ 16:20
 
 #### **Location**
 - Delta Building R216
@@ -516,10 +1108,37 @@
 #### **Short Bio**
 - A
 
+#### **Notes**
+- A
+
+#### **Feedbacks**
+- A
+
+
+
+## **11/25**
+#### **Topic**
+- A
+
+#### **Date & Time**
+- 2022 / 11 / 25 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- A
+
+#### **Abstract**
+- A
+
+#### **Short Bio**
+- A
 
 #### **Notes**
 - A
 
-
 #### **Feedbacks**
 - A
+
+
