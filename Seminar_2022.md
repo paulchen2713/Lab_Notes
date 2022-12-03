@@ -1091,7 +1091,7 @@
 
 ## **11/18**
 #### **Topic**
-- A
+- 毫米波積體電路用於波束成形 天線之使用設計、控制與測試
 
 #### **Date & Time**
 - 2022 / 11 / 18 (Fri) 14:20 ~ 16:20
@@ -1100,13 +1100,260 @@
 - Delta Building R216
 
 #### **Speaker**
-- A
+- 柯宣仲 資深研發經理
+- 李貿勳 副課長 技術工程支援
 
 #### **Abstract**
-- A
+- 2022年5G已經如火如荼的商業化，透過這次演講，會對於市場趨勢的作簡略的介紹，並針對5G特有的特性以及生活中常見的應用介紹說明。希望透過影片與簡介的方式，能讓同學對於5G相關應用有更廣的了解。
 
 #### **Short Bio**
-- A
+- 無線通訊業界十年相關工作經歷，精通3G/4G/5G 通訊協議與國際相關認證，內部與外部企業相關訓練與演講超過百場
+  - 國立交通大學電信工程學系碩士 (2010.9-2012.6)
+  - Qisda 佳世達科技 通訊協議軟體工程師 (2012.9-2015.8)
+  - Anritsu 安立知 業務暨技術支援部 技術副理 (2015.9-至今)
+
+#### **Feedbacks**
+- 今天書報討論的主題為毫米波積體電路用於波束成形天線之使用設計、控制與測試，講者有2位，分別是耀睿科技的柯宣仲資深研發經理以及李貿勳副課長，從公司業務介紹聽起來主要是提供5G相關技術檢測及分析服務 O-RAN Based Product Testing，應該可以算是測試廠? 跟上週書報的 5G spec 主題契合度很高，這週聽起來有種很熟悉的感覺。服務項目有 O-RU,O-DU,O-CU Conformance Test、Interoperability Test、End-to-End System Test、Performance Test和基本的壓力測試，主力產品有DYnamic Spectrum Environment Emulator (DYSE), Sim4Life 生醫電磁波模擬軟體等等。公司 2021 年才成立相當新，又新創又測試廠感覺人會滿難找的。
+
+
+
+## **11/25**
+#### **Topic**
+- CODE-iOS : Convex Optimization and Deep Learning-Based Imaging for Optical Satellite
+
+#### **Date & Time**
+- 2022 / 11 / 25 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 國立成功大學 電機工程學系 林家祥 教授
+
+#### **Abstract**
+- Convex optimization (CO) and deep learning (DE) are the most powerful/popular theoretical frameworks for solving inverse problems. 
+  - However, CO often induces a math-heavy optimization procedure, which is a daunting task for most software developers. 
+  - Also, DE usually requires collecting big data, quite expensive or even unavailable. 
+- Motivating by these facts, we invent a new inverse imaging theoretical framework, termed CODE. 
+  - CODE, as its name suggested, blends the advantages of CO and DE, thereby allowing us to solve challenging inverse problems using just small data and regularizers of very simple math form. 
+  - We bridge CO and DE using the so-called Q-quadratic norm—a simple convex regularizer for extracting key features embedded in a weak DE solution learned from small data (or even single data). 
+- The radically new CODE theory achieves state-of-the-art performance in reconstructing NASA's highly damaged hyperspectral satellite images. If time permits, I will also share our recent research results about quantum satellite image processing.
+
+#### **Short Bio**
+- 林家祥副教授2010於清大電機系取得學士學位、2016於清大通訊所取得博士學位。
+- 現由成大電機系主聘、敏求智慧運算學院合聘。
+- 曾於香港中文大學(2014)、美國維吉尼亞理工(2015-2016)、葡萄牙里斯本大學(2017-2018)、中央大學太空遙測中心(2018)，鑽研通訊、生醫、太空領域之研究，近期研究領域涵蓋凸優化、盲訊號處理、深度學習、衛星遙測、量子影像處理。
+- 曾榮獲五年期(2018-2023)科技部「愛因斯坦計畫」、2020 IEEE地科與遙測學會「Prize Paper Award」、2021科技部電信學門計畫執行成果「特優獎」、2021 IEEE Tainan Section「最佳年輕學者獎」、2022國家科學及技術委員會「FutureTech Award」（未來科技獎）、2022中國電機工程學會「優秀青年電機工程師獎」。
+
+
+
+#### **Notes**
+- 11/25 CODE-iOS, Convex Optimization and Deep Learning based Imaging for Optical Satellite
+- 講者 成大電機系 林家祥教授
+  - 2016年 清大通訊所博士畢業 指導老師是祈老師
+  - 研究專長含括通訊、生醫、太空領域，凸優化、衛星遙測、深度學習
+- CO 優點是不用大數據、缺點是需要很多數學
+- DL 優點是不用太多數學、缺點是需要大數據
+- 結合二者得到的結果是可以避開大數據、甚至是 single data，但又不需要太多數學
+- iOS 光學衛星成像
+  - hyperspectral image 高光圖，有可見光跟不可見光 共 242 個頻段，不像 RGB 只有 3 個
+  - 除可見光外，其他頻段的頻譜可以變成物體的指紋、還可以辨識空間分布
+- Optical Satellite P1 解析度問題，一個 pixel 最佳的解析度是 30公尺 x 30公尺，需要能把模糊的東西分開，即 blind source separation
+  - 類似研究，雞尾酒會問題，這裡統稱為 蒙蔽訊號源問題，blind的意思是沒有 dataset 可以學習，必須利用全非監督式學習的方式，計算資源有限
+- Optical Satellite P2 影像超解析 Image Super-Resolution
+- Optical Satellite P3 Hyperspectral Inpainting，常見是條狀遺失 dense stripes, serious stripes，有數學上的結構性，如自相關性。怎麼知道補回來的結果是對的，可以用數學驗證
+- Optical Satellite P4 Hyperspectral Compressed Sensing，現在的衛星趨勢是微型化、星鍊(沒有儲存設備)，能否在已經壓縮的影像上做訊號處理並直接傳送結果，能否直接直接拍出壓縮檔
+  - Metagrating 超穎材料，用奈米元件製成的天線，期望用2D材料做出分光鏡、凸透鏡
+  - 材料設計的排列問題可以形塑成一個離散的最佳化問題
+  - 為什麼要2維(? 因為微型衛星、大小很小，硬體資源很有限
+  - 目前已經可以用 2D超穎材料 做beamformer
+  - 壓縮倍數可以 lossless 壓 100倍
+- Magic? There is no magic. There is only knowledge, more or less hidden
+  - No deep learning, No Adam
+  - No big data
+  - No small data
+  - everything is achieved by single data
+  - 只用最佳化、純數學理論
+- Basic? Convex Optimization
+  - 函數是凸函數，且值域是凸集
+  - 什麼是最佳化(? 目標函數跟限制
+- ADMM Optimizer 數學對工程師來講有點太難
+  - ref. Convex Optimization for Signal Processing and Communication
+  - in convex optimization, the math is often too heavy
+- Adam Optimizer, simple operator, proposed by Dr. Diederik Kingma (Google Brian) in 2014
+  - 能否合併二者得到一個中庸解法
+- 衛星反演成像之小數據凸深度學習
+  - Motivation，在 複雜的數學 跟 大數據蒐集 中間取得平衡
+- CODE 理論框架，small data 經 Adam Optimizer (深度學習) 得到一個 weak DE solution (裡面可能已經提取出一些重要資訊)，接著用 ADMM Optimizer (凸優化) 得到 recovered image 
+  - 引入 Q-quadratic norm 的設計，在 l2-norm 中間塞一個 半正定矩陣，Q matrix 唯一限制是必須是 半正定，Q怎麼找是個問題
+- simple math 得到 fast algorithm
+  - no big data collection required
+  - SOTA Performance
+- 補充說明
+  - GAN from Game Theory
+  - CODE 附加優勢，學生(軟體工程師)不需要進階深度學習背景
+  - CO 絕對優勢，通常只需要單一數據，能否突破
+- from small data to single data vis DIP
+  - DIP, Deep Image Prior
+- Regularizer 調節項 用深度學習表示
+  - 發想是 把一個隨機雜訊 丟入 decoder 得到還原影像
+  - image optimization problem 是原來 regularizer 問題
+  - 假設 可以等效成 network parameters optimization problem 
+- CODE 理論的一般性，interdisplinary application
+  - 測試在下面 5 種領域的效果 
+    - geometrics, dynamic multispectral mangrove imaging
+    - statistics, 
+    - optics, 
+    - remote sensing, 
+    - image processing, 
+- 重點還是最佳化，最佳化是個基礎的工具
+  - 最佳化的其他研究，基因調控網路分析、超穎介面、量子小數據深度學習
+- 為什麼深度學習需要小數據、為什麼需要跟量子計算結合
+  - 目前 IBM 實驗室比較成熟的量子電腦只支援 80 個 quantum bit (Qubits)，中間的量子態是無法讀取的，只要讀取就會崩塌，如何解決量子態崩塌跟量子糾纏的問題
+
+
+
+#### **Feedbacks**
+- 今天書報討論的主題為 CODE-iOS: Convex Optimization and Deep Learning-Based Imaging for Optical Satellite，講者是成大電機系的林家祥教授，研究專長含括通訊、生醫、太空領域、凸優化、衛星遙測、深度學習等等，老師是 2016年從清大通訊所博士畢業，指導教授是祈老師，畢竟專長是凸優化跟數學。凸優化的優點是不用大數據、只需少量訓練資料甚至單一比資料即可，缺點是需要很多數學，對學生或工程師來說使用門檻比較高；深度學習的優點是不用太多數學，或數學概念較簡單易懂，缺點是需要大數據、大量訓練資料才可能有好的效果，林教授這次的成果即結合二者，既可以避開大數據、甚至是只需單一數據，也不需要太多太複雜的數學就能達到相當好的效果。目前主要是應用在光學衛星成像 (IOS, Imaging for Optical Satellite) 上面，但可以推斷這個方法有他的一般性，未來可應用範圍應該很廣。
+- 上次碰到林教授是在成大電通所面試的時候，老師那關是考機率，總共 3 題，分別是機率為1是否一定會發生、蒙提霍爾問題、布豐投針問題。老師的研究感覺非常厲害、真的是做很前沿的尖端研究，反觀通訊所或光是看自己的實驗室，我們做的感覺都是一些搬不上檯面、只是為了發論文而做的題目，即使做得很辛苦、投得上 ICC, Globecom 但感覺不出來有什麼實質貢獻、或解了什麼重要的問題，感覺每次聽書報都覺得 “好像其他學校的教授或實驗室的研究都做得比較好”。
+
+
+
+
+
+
+## **12/02**
+#### **Topic**
+- Physical Beam Sharing with Applications over Low Earth Orbit Satellite Communications
+
+#### **Date & Time**
+- 2022 / 12 / 02 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 國立陽明交通大學 電機工程學系 蔡尚澕 教授
+
+#### **Abstract**
+- Physical (analog) beamforming plays important roles to overcome severe path-loss in millimeter wave (mmWave) communications in the 5G and incoming 6G communications systems. 
+- We have proposed a new new beam sharing scheme that uses few RF chains to support more users. The feasibility of this new beam sharing scheme have been verified via over-the-air (OTA) experiments using a 28 GHz mmWave platform, which consists of an 8x8 uniform planar array (UPA). 
+- In this talk, we will introduce the applications of this new beam sharing scheme to the Low Orbit (LEO) Satellite Communications. 
+  - In the first part of this talk, the proposed beam sharing scheme will be reviewed. 
+  - Then, in the second part of this talk, the corresponding beamforming designs for the LEO communications as well as the emulation using practical LEO ground tracks will be provided.
+
+#### **Short Bio**
+- Shang-Ho (Lawrence) Tsai received the Ph.D. degree in electrical engineering from the University of Southern California (USC), USA, in August 2005. 
+  - From June 1999 to July 2002, he was with Silicon Integrated Systems Corporation (SiS), where he participated the VLSI design for DMT-ADSL systems. 
+  - From September 2005 to January 2007, he was with MediaTek Inc. (MTK) participating in the VLSI design for MIMO-OFDM systems and standard specifications for IEEE 802.11n. 
+  - Since February 2007, he has been with the Department of Electrical Engineering, National Chiao Tung University (now National Yang Ming Chiao Tung University), where he is currently a Professor. 
+  - From June 2013 to December 2013, he was a Visiting Fellow with the Department of Electrical Engineering, Princeton University.
+- His research interests are in the areas of signal processing for communications, statistical signal processing, and machine learning. 
+  - He was in the Editorial Board of IEEE SigPort in 2018-2020. 
+  - He is an Editor of APSIPA Transactions on Signal and Information Processing since 2022. 
+  - He is in the Signal Processing for Communications and Networking Technical Committee (SPCOM TC) of IEEE Signal Processing Society in 2023-2025. 
+- Dr. Tsai was awarded a Government Scholarship for Overseas Study from the Ministry of Education, Taiwan, from 2002 to 2005. He was awarded the Micron Teacher Award in 2018. He is a distinguished lecturer in the APSIPA in 2022-2023.
+
+
+#### **Notes**
+- 12/02 physical beam sharing with applications over low earth orbit satellite communication
+  - ref. Physical Beam Sharing Multiuser System: Beamforming Design and OTA Testing, IEEE Transaction on Wireless Communication, Aug. 2022
+- 蔡尚華 教授 
+  - NYCU CaSIC Lab
+  - 南加大博士
+  - 聯發科任職、交大任教
+- part I intro to physical beam sharing in mmwave communication
+  - motivation and goal
+  - system model
+  - problem formulation
+  - MISO solution
+  - MIMO solution
+  - simulation results
+  - OTA experiment over 28GHz mmwave UPA array
+- part II physical beam sharing with applications in LEO communications
+  - motivation and goal
+  - system model
+  - problem formulation
+  - proposed solution
+  - simulation results
+  - conclusion
+- motivation and goal
+  - hybrid precoding was proposed to reduce hardware cost
+    - 雖然能減少 RF chain 數量，但所需數量還是大於使用者數
+    - 實際上不是 Interference-free 還是會有干擾，需要處理 multi-user inference
+- 想法: 
+  - one RF chain for multiple streams or users
+- 傳統解法:
+  - CEP, Constant Envelope Precoding
+  - Joint Constellation Design
+- 疑問:
+  - can we use only one RF chain to form multiple beams simultaneously for multiple users?
+- system model of the proposed system
+  - 因為只有一個 陣列天線，所以所有 beam 共用一個 RF/analog precoder F，自由度較小，digital precoder B 可以各個 beam 自己決定，自由度較大
+  - design precoder 有分 2 種
+    - high SNR regime
+    - low SNR regime, low SNR 比較簡單
+  - high SNR 又再分 2 種 
+    - two-user 
+    - multiuser，其中 two-user 可以找到 closed form 的解
+  - 正交假設：當陣列天線數夠大的時候，也就是分得夠細，各個天線 form 的 beam 會正交
+- NOMA system 
+  - 在 Rx 端需要 SIC 
+    - 但什麼是 SIC? SIC, Successive Inteference Cancellation
+  - 且 NOMA system 會有 fairness 的問題
+    - 即使 2 個 user 離很近，分到的功率也不一樣，會有 strong user 跟 weak user 的問題
+  - 用 beam sweep 去找 user 所在的角度
+  - EVM measurements 來測 user 收到訊號強弱好壞
+- physical beam sharing with applications in LEO communications
+  - motivation 1: bad weather blocks transmission
+    - ITU-R p.618 has modeled the attenuation for communications between earth and space
+    - attenuation can be up to 42dB
+  - motivation 2: conventional dedicated beam needs multiple RF chain to support multiple data streams for each user with LOS channels
+    - 在 LEO comm 有 LOS 的情況下，一個 RF chain 只能支援一個 data stream 
+  - motivation 3: nowadays space communications with multiple satellites are very common
+- problem formulation issues
+  - maximize sum rate
+  - minimize power consumption
+- conclusion
+  - proposed a new beam sharing scheme and its applications in mmwave and LEO communications
+  - OTA verification
+  - built a practical ground track of LEO satellites passing through the middle of Taipei 101 and NYCU
+- 推廣
+  - APSIPA 協會，有別於 IEEE
+- trade-off
+  - beam sharing 問題，power 比較弱、是在頻域上分 user 所以其實沒有用到所有頻帶
+
+
+#### **Feedbacks**
+- 今天書報討論的主題為 Physical Beam Sharing with Applications Over Low Earth Orbit Satellite Communications，講者是交大電機系的蔡尚華教授，老師學歷顯赫是南加大博士，先在聯發科任職一段時間後才回交大任教。Physical Beam Sharing 這個主題我去年有旁聽過一次，上次聽的時候論文才剛投出去，現在是已經刊在 IEEE TWC 上了。演講的節奏有點慢但又不是講得很清楚，感覺可以再多帶一點基礎的內容，畢竟不是每個同學都很熟 hybrid beamforming，會的人當複習；不會的當科普，做beamforming 設計的也不一定看過真的 beamforming 實驗架設，總得還說還是覺得滿有趣的。
+
+
+
+
+
+
+## **12/09**
+#### **Topic**
+- 大腦的RAM-工作記憶 (The Brain's RAM- Working Memory)
+
+#### **Date & Time**
+- 2022 / 12 / 09 (Fri) 14:20 ~ 16:20
+
+#### **Location**
+- Delta Building R216
+
+#### **Speaker**
+- 國立清華大學 幼兒教育學系 陳湘淳 教授 
+
+#### **Abstract**
+- 工作記憶和我們日常生活息息相關，是支援我們與外界互動和學習的重要能力，可用來預測語文理解、邏輯推理和流體智力。
+- 但是你可能不知道，什麼是工作記憶? 和短期記憶有什麼不同? 什麼時候我們需要運用工作記憶? 工作記憶的運作機制為何? 如何測量一個人的工作記憶容量? 工作記憶容量可以訓練嗎?
+- 講者將從認知發展與實驗心理學的角度，介紹一系列和工作記憶有關的理論、測量與訓練研究。
+
+#### **Short Bio**
+- 陳湘淳副教授畢業於國立中正大學，是認知心理學博士。目前任職於國立清華大學幼兒教育學系，研究興趣與專長領域為「工作記憶理論與測量」、「嬰幼兒工作記憶發展」、「學習與記憶策略」、「訓練研究」、「眼動研究」。
+- 陳湘淳副教授執行的國科會研究計畫，主要在發展『幼兒工作記憶測量工具』、用眼動和行為測量『探討嬰幼兒時期注意力和工作記憶發展的關係』。產學合作計畫曾與廠商合作開發「5-7歲幼兒認知能力測量app」，並推廣至新竹縣市的公立幼兒園，也曾參與教育部大型產業創新計畫(RSC)，設計「數位化工作記憶訓練遊戲」，並已申請專利。
+- 另外，陳湘淳副教授從106年開始至今，皆代表學校承辦「新竹市東區親子館」(在巨城的三樓)，免費提供優質的親子活動課程與遊戲設備給新竹市0-12歲的兒童與弱勢家庭。
 
 #### **Notes**
 - A
@@ -1116,12 +1363,14 @@
 
 
 
-## **11/25**
+
+
+## **12/16**
 #### **Topic**
 - A
 
 #### **Date & Time**
-- 2022 / 11 / 25 (Fri) 14:20 ~ 16:20
+- 2022 / 12 / 16 (Fri) 14:20 ~ 16:20
 
 #### **Location**
 - Delta Building R216
@@ -1140,5 +1389,9 @@
 
 #### **Feedbacks**
 - A
+
+
+
+
 
 
