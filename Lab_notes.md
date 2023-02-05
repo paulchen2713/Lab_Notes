@@ -1236,9 +1236,13 @@ print(f"Test dataset size:  {n_samples_test}")
 
 
 
-#### 11/26
+### 11/26
 - Wang, Chien-Yao, Alexey Bochkovskiy, and Hong-Yuan Mark Liao. "[YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696v1)." *arXiv preprint arXiv:2207.02696* (2022).
 
+
+### 12/21
+- M. Yao, L. Chen, J. Zhang, J. Huang and J. Wu, "[Loading Cost-Aware Model Caching and Request Routing for Cooperative Edge Inference](https://ieeexplore.ieee.org/document/9838823)," *ICC 2022 - IEEE International Conference on Communications*, 2022, pp. 2327-2332.
+- Y. Shen, J. Zhang and K. B. Letaief, "[How Neural Architectures Affect Deep Learning for Communication Networks?](https://ieeexplore.ieee.org/document/9839205)," *ICC 2022 - IEEE International Conference on Communications*, 2022, pp. 389-394.
 
 
 
