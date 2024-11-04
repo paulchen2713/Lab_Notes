@@ -1,5 +1,6 @@
-# Lab notes
-### First Year
+
+# **Lab notes I**
+### **First Year**
 - 11/29 
   - J. Shao and J. Zhang, "[Communication-Computation Trade-off in Resource-Constrained Edge Inference](https://ieeexplore.ieee.org/document/9311935)," in *IEEE Communications Magazine*, vol. 58, no. 12, pp. 20-26, December 2020. (cited by 38)
   - github repo [Edge_Inference_three-step_framework](https://github.com/shaojiawei07/Edge_Inference_three-step_framework)
